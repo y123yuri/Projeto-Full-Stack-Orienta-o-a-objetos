@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, flash
 from app.funcoes import criar_json, salvar_dados_json, verificar_user
 
 @app.route('/')
@@ -28,12 +28,12 @@ def cadastro():
             'senha': senha,
         }
         
-        verificacao = verificar_user(usuario=usuario)
-        if verificacao != True:
-            salvar_dados_json(novo_usuario) # salva os dados coletados no json
-            return 'Usário cadastrado com sucesso!'
+        if verificar_user(usuario=usuario, email=email):
+            flash('O nome de usuário ou o e-mail já foi cadastrado!', 'error')
         else:
-            flash('O nome de usuário já foi cadastrado!', 'error') 
+            salvar_dados_json(novo_usuario)  # Salva os dados coletados no JSON
+            flash("Cadastro realizado com sucesso!")
+            return 'Usuário cadastrado com sucesso!'
     return render_template('cadastro.html')
 
 

@@ -29,15 +29,18 @@ def salvar_dados_json(novo_usuario):
     with open(data_user, 'w') as arquivo:
         json.dump(dados, arquivo, indent=4)
 
-def verificar_user(usuario):
+def verificar_user(usuario, email):
     with open(data_user, 'r') as arquivo:
-        usuarios = json.load(arquivo)  
+        usuarios = json.load(arquivo)
 
-    # verifica se o usuário existe
+    # verifica se o nome de usuário ou o e-mail já existe
     for user in usuarios:
-        if user.get('nome') == usuario:  #usuario foi encontrado, tem que travar o sistema
-            print(f"Usuário {usuario} encontrado!")
-            return True
+        if user.get('usuario') == usuario:
+            print(f"Usuário {usuario} já está cadastrado!")
+            return True  # nome de usuário já existe
+        if user.get('email') == email:
+            print(f"E-mail {email} já está cadastrado!")
+            return True  # email já existe
 
-    print(f"Usuário {usuario} não encontrado.")
+    print(f"Usuário {usuario} e e-mail {email} não encontrados.")
     return False

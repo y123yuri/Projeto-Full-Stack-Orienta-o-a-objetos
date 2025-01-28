@@ -10,7 +10,6 @@ document.getElementById('cadastroForm').addEventListener('submit', function (eve
         erroMensagem.style.display = 'block';
     } else {
         erroMensagem.style.display = 'none';
-        alert('Cadastro realizado com sucesso!');
         // Aqui você pode enviar os dados para o backend
         this.submit(); // Enviar o formulário se tudo estiver correto
     }
