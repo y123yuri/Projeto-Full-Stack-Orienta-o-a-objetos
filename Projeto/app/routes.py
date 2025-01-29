@@ -1,6 +1,7 @@
 from app import app
-from flask import render_template, redirect, request, flash
-from app.funcoes import criar_json, salvar_dados_json, verificar_user
+from flask import render_template, redirect, request, flash, session, url_for
+from app.funcoes import criar_json, salvar_dados_json, verificar_user, carregar_dados_json
+
 
 @app.route('/')
 @app.route('/index')
@@ -38,23 +39,47 @@ def cadastro():
 
 
 
+
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        nome = request.form.get('usuario')
+        usuario = request.form.get('usuario')
         senha = request.form.get('senha')
-        print(nome)
-        print(senha)
+
+        usuarios = carregar_dados_json() # pega os dados do json
+
+        for user in usuarios: # verifica todos os cadastros já realizados
+            if user['usuario'] == usuario and user['senha'] == senha:
+                session['usuario'] = user  # Armazena na sessão
+                return redirect(url_for('perfil')) # leva pra página de perfil
+
+        return "Usuário ou senha inválidos!"
+
     return render_template('login.html')
     #fazer logica 
+
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    return redirect(url_for('login'))
 
 
 @app.route('/restaurante')
 def restaurante():
     restaurante_info = {
         "nome": "Pizzaria Itália",
-        "localizacao": "Rua das Flores, 45 - SP",
+        "localizacao": "Rua das Flores, 45 - SP",  # isso aqui é so um exemplo, aqui vai os dados dos restaurantes cadastrados
         "avaliacao": 4.8,
         "especialidade": "Pizza Italiana"
     }
     return render_template('restaurante.html', restaurante=restaurante_info)
+
+@app.route('/perfil')
+def perfil():
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+
+    return render_template('perfil.html', usuario=session['usuario'])
+
+
+    
