@@ -8,7 +8,7 @@ def index():
     return "aOabvgffhrftlad maundo"
 
 
-criar_json = criar_json() # cria o json
+criar_json() # cria o json 
 
 @app.route('/cadastro', methods=['GET','POST'])
 def cadastro():
@@ -47,3 +47,14 @@ def login():
         print(senha)
     return render_template('login.html')
     #fazer logica 
+
+
+@app.route('/restaurante')
+def restaurante():
+    restaurante_info = {
+        "nome": "Pizzaria Itália",
+        "localizacao": "Rua das Flores, 45 - SP",
+        "avaliacao": 4.8,
+        "especialidade": "Pizza Italiana"
+    }
+    return render_template('restaurante.html', restaurante=restaurante_info)
