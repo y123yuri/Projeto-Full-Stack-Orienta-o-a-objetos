@@ -15,6 +15,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+
+from app.models import tables
 from app import routes 
 
 
