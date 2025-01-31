@@ -8,46 +8,55 @@
 </head>
 <body>
     <header>
+        <!-- Botão de favorito -->
+        <button class="favorite" onclick="toggleFavorite()">♡</button>
         <h1>🍽️ Nome do Restaurante</h1>
         <span class="rating">⭐ 4.5 / 5</span>
     </header>
 
-    <section class="info">
-        <p><strong>📍 Localização:</strong> Rua Exemplo, 123 - São Paulo, SP</p>
-        <p><strong>🍲 Especialidade:</strong> Comida Italiana</p>
-        <a href="https://www.google.com/maps" target="_blank">Ver no Google Maps</a>
-    </section>
-
+    <!-- Galeria de imagens -->
     <section class="gallery">
         <h2>📸 Fotos</h2>
-        <img src="restaurante1.jpg" alt="Foto do restaurante">
-        <img src="restaurante2.jpg" alt="Prato especial">
+        <div class="slider">
+            <img src="restaurante1.jpg" alt="Foto do restaurante" class="active">
+            <img src="restaurante2.jpg" alt="Prato especial">
+            <img src="restaurante3.jpg" alt="Ambiente do restaurante">
+            <div class="slider-buttons">
+                <button onclick="prevSlide()">❮</button>
+                <button onclick="nextSlide()">❯</button>
+            </div>
+        </div>
+        <div class="thumbnails">
+            <img src="restaurante1.jpg" onclick="goToSlide(0)" class="active">
+            <img src="restaurante2.jpg" onclick="goToSlide(1)">
+            <img src="restaurante3.jpg" onclick="goToSlide(2)">
+        </div>
     </section>
 
-    <section class="reviews">
-        <h2>💬 Comentários</h2>
-        <div class="comment">
-            <strong>João:</strong> "Ótima comida e atendimento excelente!"
-        </div>
-        <div class="comment">
-            <strong>Ana:</strong> "O melhor risoto que já comi, recomendo!"
-        </div>
-        <form>
-            <textarea placeholder="Deixe seu comentário..."></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-
-    <footer>
-        <button class="favorite" onclick="toggleFavorite()">❤️ Favoritar</button>
-    </footer>
-
-    <script>
-        function toggleFavorite() {
-            const button = document.querySelector('.favorite');
-            button.classList.toggle('active');
-            button.textContent = button.classList.contains('active') ? "💛 Favoritado" : "❤️ Favoritar";
-        }
-    </script>
+    <main class="content">
+        <section class="info">
+            <h2>📍 Localização</h2>
+            <a href="https://www.google.com/maps" class="botao-localizacao" target="_blank">Ver no Google Maps</a>
+             
+            <h2>📜 Cardápio</h2>
+            <a href="" class="botao-cardapio">Ver Cardápio Completo</a>
+        </section>
+        
+        <section class="reviews">
+            <h2>💬 Avaliações</h2>
+            <div class="comment">
+                <strong>João:</strong> "Ótima comida e atendimento excelente!"
+            </div>
+            <div class="comment">
+                <strong>Ana:</strong> "O melhor risoto que já comi, recomendo!"
+            </div>
+            <form>
+                <textarea placeholder="Deixe seu comentário..."></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+    <script src="/static/js/restaurante.js"></script>
 </body>
 </html>
+
