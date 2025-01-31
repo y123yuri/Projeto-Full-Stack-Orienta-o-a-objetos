@@ -6,9 +6,16 @@
     <title>Perfil do Usuário</title>
 </head>
 <body>
-    <h1>Bem-vindo, {{ usuario['nome'] }}!</h1>
-    <p><strong>Usuário:</strong> {{ usuario['usuario'] }}</p>
-    <p><strong>Email:</strong> {{ usuario['email'] }}</p>
+    <h1>Bem-vindo, {{ usuario.name }}!</h1>
+    <p><strong>Usuário:</strong> {{ usuario.username }}</p>
+    <p><strong>Email:</strong> {{ usuario.email }}</p>
+    {%if perfil.bio == None %}
+    <p><strong>Bio:</strong> Este usuário não possui descrição. </p>
+    {%else%}
+    <p><strong>Bio:</strong> {{ perfil.bio }}</p>
+    {% endif %}
+
+
     
     <a href="{{ url_for('logout') }}">Sair</a>
 </body>
