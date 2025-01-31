@@ -29,13 +29,13 @@ def cadastro():
             'senha': senha,
         }
         
-        if verificar_user(usuario=usuario, email=email):
-            flash('O nome de usuário ou o e-mail já foi cadastrado!', 'error')
-        else:
-            salvar_dados_json(novo_usuario)  # Salva os dados coletados no JSON
-            flash("Cadastro realizado com sucesso!")
-            return 'Usuário cadastrado com sucesso!'
-    return render_template('cadastro.html')
+    #     if verificar_user(usuario=usuario, email=email):
+    #         flash('O nome de usuário ou o e-mail já foi cadastrado!', 'error')
+    #     else:
+    #         salvar_dados_json(novo_usuario)  # Salva os dados coletados no JSON
+    #         flash("Cadastro realizado com sucesso!")
+    #         return 'Usuário cadastrado com sucesso!'
+    # return render_template('cadastro.html')
 
 
 

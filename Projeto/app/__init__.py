@@ -10,6 +10,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))  # caminho base do projeto
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, '..', 'data', 'storage.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'PROJETO_OO'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
