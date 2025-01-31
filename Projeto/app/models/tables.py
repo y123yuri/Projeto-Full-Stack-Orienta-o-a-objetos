@@ -47,7 +47,7 @@ class Restaurantes(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(60), nullable=False)
-    avaliacoes = db.Column(db.Text)  # Caso avaliacoes seja um JSON ou texto, mantenha como Text
+    avaliacoes = db.Column(db.Text) 
     tipo = db.Column(db.String(60))
     endereco = db.Column(db.String(120))
     horario = db.Column(db.String(60))
@@ -63,3 +63,23 @@ class Restaurantes(db.Model):
 
     def __repr__(self):
         return f"<Restaurante {self.nome}>"
+
+
+class Perfil(db.Model):
+    __tablename__ = "perfis"
+
+    id = db.Column(db.Integer, primary_key=True)
+    bio = db.Column(db.Text, nullable=True)
+    avatar = db.Column(db.String(120), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, unique=True)
+
+    # Relacionamento
+    user = db.relationship("User", backref=db.backref("perfil", uselist=False, cascade="all, delete-orphan"))
+
+    def __init__(self, bio, avatar, user_id):
+        self.bio = bio
+        self.avatar = avatar
+        self.user_id = user_id
+
+    def __repr__(self):
+        return f"<Perfil {self.id} - User {self.user_id}>"

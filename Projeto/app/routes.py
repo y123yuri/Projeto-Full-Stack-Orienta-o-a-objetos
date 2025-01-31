@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, redirect, request, flash, session, url_for
-from app.funcoes import criar_json, salvar_dados_json, verificar_user, carregar_dados_json
+# from app.funcoes import criar_json, salvar_dados_json, verificar_user, carregar_dados_json
 
 
 @app.route('/')
@@ -9,7 +9,7 @@ def index():
     return "aOabvgffhrftlad maundo"
 
 
-criar_json() # cria o json 
+# criar_json() # cria o json 
 
 @app.route('/cadastro', methods=['GET','POST'])
 def cadastro():
