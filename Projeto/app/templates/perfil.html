@@ -3,20 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Usuário</title>
+    <title>Perfil</title>
+    <link rel="stylesheet" href="/static/css/perfil.css">
 </head>
 <body>
-    <h1>Bem-vindo, {{ usuario.name }}!</h1>
-    <p><strong>Usuário:</strong> {{ usuario.username }}</p>
-    <p><strong>Email:</strong> {{ usuario.email }}</p>
-    {%if perfil.bio == None %}
-    <p><strong>Bio:</strong> Este usuário não possui descrição. </p>
-    {%else%}
-    <p><strong>Bio:</strong> {{ perfil.bio }}</p>
-    {% endif %}
+    <header>
+        <h1>👤 {{ usuario.name }}</h1>
+    </header>
 
+    <main class="content">
+        <section class="profile-info">
+            <img src="/static/images/user-avatar.png" alt="Foto de perfil" class="avatar">
+            <h2 class="profile-username">{{ usuario.username }}</h2>
+            <p class="profile-email">📧 Email: {{ usuario.email }}</p>
+            <p class="profile-bio">📃 Biografia: {{ perfil.bio }}</p>
+            <p>⭐ Avaliações feitas: 10</p>
+        </section>
 
+        <section class="favorites">
+            <h2>🍽️ Restaurantes Favoritos</h2>
+            <ul>
+                <li>⭐ Restaurante 1</li>
+                <li>⭐ Restaurante 2</li>
+                <li>⭐ Restaurante 3</li>
+            </ul>
+        </section>
+
+        <section class="reviews">
+            <h2>💬 Últimas Avaliações</h2>
+            <div class="comment">
+                <strong>Restaurante X:</strong> "Comida excelente!"
+            </div>
+            <div class="comment">
+                <strong>Restaurante Y:</strong> "Ambiente aconchegante."
+            </div>
+        </section>
+    </main>
+    
+    <section class="account-settings">
+        <h2>Configurações da Conta</h2>
+        <button class="change-password">🔑 Alterar Senha</button>
+        <button class="edit-username">✏️ Alterar Username</button>
+        <button class="delete-account">❌ Excluir Conta</button>
+    </section>
+
+    <section class="messages">
+        <h2>📩 Mensagens</h2>
+        <button class="open-messages">Ver Mensagens</button>
+    </section>
+    
+    <section class="coupons">
+        <h2>🎟️ Meus Cupons</h2>
+        <button class="view-coupons">Ver Cupons</button>
+    </section>
     
     <a href="{{ url_for('logout') }}">Sair</a>
+    <script src="/static/js/perfil.js"></script>
 </body>
 </html>
