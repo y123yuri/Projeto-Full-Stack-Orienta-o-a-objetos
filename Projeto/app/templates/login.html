@@ -15,28 +15,28 @@
 
   <body>
     <div id="form_fundo">
-      <h1 style="color: #ff6347">LOGIN</h1>
-      <div id="form_frente">
-        <form action="/login" id="login" method="POST">
-          <label for="nome">Usuário</label>
-          <input
-            type="text"
-            name="usuario"
-            id="nome"
-            required
-            placeholder="Digite seu nome" /><br />
+      <h1>LOGIN</h1>
+    </div>
+    <div id="form_frente">
+      <form action="/login" id="login" method="POST">
+        <label for="nome">Usuário</label>
+        <input
+          type="text"
+          name="usuario"
+          id="nome"
+          required
+          placeholder="Digite seu nome" /><br />
 
-          <label for="senha" id="senha" style="top: 10em">Senha</label>
-          <input
-            type="password"
-            name="senha"
-            id="senha"
-            required
-            placeholder="Digite sua senha" /><br />
+        <label for="senha" id="senha">Senha</label>
+        <input
+          type="password"
+          name="senha"
+          id="senha"
+          required
+          placeholder="Digite sua senha" /><br />
 
-          <button type="submit" id="btn_login">Entrar</button>
-        </form>
-      </div>
+        <button type="submit" id="btn_login">Entrar</button>
+      </form>
     </div>
   </body>
 </html>
