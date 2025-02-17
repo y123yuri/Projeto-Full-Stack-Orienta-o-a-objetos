@@ -1,206 +1,207 @@
 /* Importa a fonte Poppins do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 /* Reset de margens, preenchimentos e definição da fonte padrão */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Define o fundo da página e a cor do texto */
 body {
-    background-color: #f8f8f8;
-    color: #333;
-    padding: 20px;
+  background-color: #f3f4f6;
+  color: #333;
+  padding: 20px;
 }
 
 /* Estilização do cabeçalho */
 header {
-    display: flex;
-    justify-content: center; /* Centraliza o título */
-    align-items: center;
-    background: #ff6347;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 10px;
-    position: relative;
+  display: flex;
+  justify-content: center; /* Centraliza o título */
+  align-items: center;
+  background: #ff6347;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  position: relative;
 }
 
 /* Estilização do botão de favorito */
 .favorite {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 /* Quando o botão de favorito estiver ativo, ele fica vermelho */
 .favorite.active {
-    color: red;
+  color: red;
 }
 
 /* Avaliação do restaurante, posicionada no canto direito */
 .rating {
-    position: absolute;
-    right: 20px;
-    font-size: 18px;
-    font-weight: bold;
+  position: absolute;
+  right: 20px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* Layout principal da página */
 .content {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 /* Seções de informações e avaliações com estilo similar */
-.info, .reviews {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    flex: 1; /* Define que ambos ocupam o mesmo espaço */
+.info,
+.reviews {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Define que ambos ocupam o mesmo espaço */
 }
 
 /* Estilização da galeria de imagens */
 .gallery {
-    text-align: center;
-    margin: 20px 0;
-    position: relative;
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
 }
 
 /* Container do slider de imagens */
 .slider {
-    position: relative;
-    max-width: 500px;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-width: 500px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilização das imagens do slider */
 .slider img {
-    width: 100%;
-    display: none; /* Esconde todas as imagens por padrão */
-    transition: opacity 0.5s ease-in-out;
+  width: 100%;
+  display: none; /* Esconde todas as imagens por padrão */
+  transition: opacity 0.5s ease-in-out;
 }
 
 /* Exibe a imagem ativa */
 .slider img.active {
-    display: block;
+  display: block;
 }
 
 /* Botões de navegação do slider */
 .slider-buttons {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
 }
 
 /* Estilo dos botões de navegação */
 .slider-buttons button {
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: 0.3s;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
 }
 
 .slider-buttons button:hover {
-    background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 /* Miniaturas das imagens do slider */
 .thumbnails {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .thumbnails img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: 0.3s;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
 }
 
 /* Destaca a miniatura ativa */
 .thumbnails img.active {
-    border: 2px solid #ff6347;
-    opacity: 1;
+  border: 2px solid #ff6347;
+  opacity: 1;
 }
 
 /* Caixa de texto para comentário */
 textarea {
-    width: 100%; /* Ocupa toda a largura disponível */
-    height: 120px; /* Aumenta a altura da caixa */
-    font-size: 16px; /* Ajusta o tamanho da fonte */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none; /* Impede o redimensionamento manual */
+  width: 100%; /* Ocupa toda a largura disponível */
+  height: 120px; /* Aumenta a altura da caixa */
+  font-size: 16px; /* Ajusta o tamanho da fonte */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none; /* Impede o redimensionamento manual */
 }
 
 /* Estiliza o link do cardápio como um botão */
 .botao-cardapio {
-    display: inline-block;
-    background: #ff6347;
-    color: white;
-    padding: 8px 15px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 15px;
-    transition: 0.3s;
+  display: inline-block;
+  background: #ff6347;
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.3s;
 }
 
 .botao-cardapio:hover {
-    background: #e5533d;
+  background: #e5533d;
 }
 
 /* Estiliza o link da localização */
 .botao-localizacao {
-    display: inline-block;
-    background: #ff6347;
-    color: white;
-    padding: 8px 15px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 15px;
-    transition: 0.3s;
+  display: inline-block;
+  background: #ff6347;
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.3s;
 }
 
 .botao-localizacao:hover {
-    background: #e5533d;
+  background: #e5533d;
 }
 
 /* Botão de enviar comentário */
 button {
-    background: #ff6347;
-    color: white;
-    padding: 12px 20px; /* Aumentado para mais espaço */
-    border: none;
-    border-radius: 8px; /* Bordas mais arredondadas */
-    cursor: pointer;
-    font-size: 18px; /* Aumenta o tamanho da fonte */
-    transition: 0.3s;
+  background: #ff6347;
+  color: white;
+  padding: 12px 20px; /* Aumentado para mais espaço */
+  border: none;
+  border-radius: 8px; /* Bordas mais arredondadas */
+  cursor: pointer;
+  font-size: 18px; /* Aumenta o tamanho da fonte */
+  transition: 0.3s;
 }
 
 button:hover {
-    background: #e5533d;
+  background: #e5533d;
 }

@@ -1,69 +1,89 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f3f4f6;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  background-color: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#box_titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff6347;
+  color: #ffffff;
+  height: 5em;
+  width: 87em;
+  margin-top: -42.5em;
+  margin-left: -31em;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 .form-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+  position: relative;
+  justify-content: center;
+  background-color: #ffffff;
+  height: 35em;
+  width: 25em;
+  margin-top: 5%;
+  margin-left: -62%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 3px #ff6347;
+  padding: 30px;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 14px;
 }
 
 input {
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
 }
 
 button {
-    width: 100%;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+  width: 100%;
+  background-color: #ffffff;
+  color: #ff6347;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+  background-color: #ff6347;
+  color: #ffffff;
 }
 
 .erro-mensagem {
-    color: red;
-    font-size: 14px;
-    text-align: center;
-    display: none;
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  display: none;
 }

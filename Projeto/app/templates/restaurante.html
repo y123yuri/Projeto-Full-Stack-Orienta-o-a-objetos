@@ -1,62 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nome do Restaurante - Avaliação e Comentários</title>
-    <link rel="stylesheet" href="/static/css/restaurante.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/static/css/restaurante.css" />
+  </head>
+  <body>
     <header>
-        <!-- Botão de favorito -->
-        <button class="favorite" onclick="toggleFavorite()">♡</button>
-        <h1>🍽️ Nome do Restaurante</h1>
-        <span class="rating">⭐ 4.5 / 5</span>
+      <!-- Botão de favorito -->
+      <button class="favorite" onclick="toggleFavorite()">♡</button>
+      <h1>Nome do restaurante</h1>
+      <span class="rating">⭐ 4.5 / 5</span>
     </header>
 
     <!-- Galeria de imagens -->
     <section class="gallery">
-        <h2>📸 Fotos</h2>
-        <div class="slider">
-            <img src="restaurante1.jpg" alt="Foto do restaurante" class="active">
-            <img src="restaurante2.jpg" alt="Prato especial">
-            <img src="restaurante3.jpg" alt="Ambiente do restaurante">
-            <div class="slider-buttons">
-                <button onclick="prevSlide()">❮</button>
-                <button onclick="nextSlide()">❯</button>
-            </div>
+      <h2>📸 Fotos</h2>
+      <div class="slider">
+        <img src="restaurante1.jpg" alt="Foto do restaurante" class="active" />
+        <img src="restaurante2.jpg" alt="Prato especial" />
+        <img src="restaurante3.jpg" alt="Ambiente do restaurante" />
+        <div class="slider-buttons">
+          <button onclick="prevSlide()">❮</button>
+          <button onclick="nextSlide()">❯</button>
         </div>
-        <div class="thumbnails">
-            <img src="restaurante1.jpg" onclick="goToSlide(0)" class="active">
-            <img src="restaurante2.jpg" onclick="goToSlide(1)">
-            <img src="restaurante3.jpg" onclick="goToSlide(2)">
-        </div>
+      </div>
+      <div class="thumbnails">
+        <img src="restaurante1.jpg" onclick="goToSlide(0)" class="active" />
+        <img src="restaurante2.jpg" onclick="goToSlide(1)" />
+        <img src="restaurante3.jpg" onclick="goToSlide(2)" />
+      </div>
     </section>
 
     <main class="content">
-        <section class="info">
-            <h2>📍 Localização</h2>
-            <a href="https://www.google.com/maps" class="botao-localizacao" target="_blank">Ver no Google Maps</a>
-             
-            <h2>📜 Cardápio</h2>
-            <a href="" class="botao-cardapio">Ver Cardápio Completo</a>
-        </section>
-        
-        <section class="reviews">
-            <h2>💬 Avaliações</h2>
-            <div class="comment">
-                <strong>João:</strong> "Ótima comida e atendimento excelente!"
-            </div>
-            <div class="comment">
-                <strong>Ana:</strong> "O melhor risoto que já comi, recomendo!"
-            </div>
-            <form>
-                <textarea placeholder="Deixe seu comentário..."></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-        </section>
+      <section class="info">
+        <h2>📍 Localização</h2>
+        <a
+          href="https://www.google.com/maps"
+          class="botao-localizacao"
+          target="_blank"
+          >Ver no Google Maps</a
+        >
+
+        <h2>📜 Cardápio</h2>
+        <a href="" class="botao-cardapio">Ver Cardápio Completo</a>
+      </section>
+
+      <section class="reviews">
+        <h2>💬 Avaliações</h2>
+        <div class="comment">
+          <strong>João:</strong> "Ótima comida e atendimento excelente!"
+        </div>
+        <div class="comment">
+          <strong>Ana:</strong> "O melhor risoto que já comi, recomendo!"
+        </div>
+        <form>
+          <textarea placeholder="Deixe seu comentário..."></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
     </main>
     <script src="/static/js/restaurante.js"></script>
-</body>
+  </body>
 </html>
-

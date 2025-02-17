@@ -1,61 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
-
-
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/cadastro.css') }}" />
 
     <script>
-        // Função para exibir o alert com base na mensagem do backend
-        function showPopup(message) {
-            alert(message);
-        }
+      // Função para exibir o alert com base na mensagem do backend
+      function showPopup(message) {
+        alert(message);
+      }
     </script>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <script>
+      // Mostra o popup com a mensagem recebida
+      {% for category, message in messages %}
+          showPopup("{{ message }}");
+      {% endfor %}
+    </script>
+    {% endif %} {% endwith %}
 
-
-
-</head>
-<body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <script>
-                    // Mostra o popup com a mensagem recebida
-                    {% for category, message in messages %}
-                        showPopup("{{ message }}");
-                    {% endfor %}
-                </script>
-            {% endif %}
-        {% endwith %}
-
-
-
-
-
+    <div id="box_titulo">
+      <h1>Cadastro</h1>
+    </div>
     <div class="form-container">
-        <h2>Cadastro</h2>
-        <form id="cadastroForm" method="POST" action="/cadastro">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+      <form id="cadastroForm" method="POST" action="/cadastro">
+        <label for="nome">Nome</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Digite seu nome"
+          required />
 
-            <label for="nome">Usuário</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Digite seu nome" required>
-            
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Digite seu email" required>
-            
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-            
-            <label for="confirmaSenha">Confirmar Senha</label>
-            <input type="password" id="confirmaSenha" name="confirmaSenha" placeholder="Confirme sua senha" required>
-            
-            <button type="submit">Cadastrar</button>
-        </form>
-        <p id="erroMensagem" class="erro-mensagem"></p>
+        <label for="nome">Usuário</label>
+        <input
+          type="text"
+          id="usuario"
+          name="usuario"
+          placeholder="Digite seu nome"
+          required />
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Digite seu email"
+          required />
+
+        <label for="senha">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          placeholder="Digite sua senha"
+          required />
+
+        <label for="confirmaSenha">Confirmar Senha</label>
+        <input
+          type="password"
+          id="confirmaSenha"
+          name="confirmaSenha"
+          placeholder="Confirme sua senha"
+          required />
+
+        <button type="submit">Cadastrar</button>
+      </form>
+      <p id="erroMensagem" class="erro-mensagem"></p>
     </div>
     <script src="{{ url_for('static', filename='js/cadastro.js') }}"></script>
-</body>
+  </body>
 </html>
