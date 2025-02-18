@@ -2,10 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+scraper\geckodriver-0.34.0
 # C extensions
 *.so
-
+scraper/geckodriver-0.34.0
 # Distribution / packaging
 .Python
 build/
