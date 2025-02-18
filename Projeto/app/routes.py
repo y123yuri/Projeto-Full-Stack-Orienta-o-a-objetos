@@ -4,9 +4,9 @@ from app.models.tables import User,Perfil,Restaurantes
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-@app.route('/')
+@app.route('/home')
 def home():
-    return "aOabvgffhrftlad maundo"
+    return render_template('home.html')
 
 
 

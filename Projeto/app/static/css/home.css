@@ -1,0 +1,111 @@
+/* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Container principal */
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Cabeçalho */
+.header {
+    background-color: #ff5733;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Barra de navegação */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    padding: 10px 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    color: #ff5733;
+}
+
+/* Banner principal */
+.banner {
+    background: url('/static/images/home-banner.jpg') center/cover no-repeat;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Seção de destaque */
+.featured-section {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.featured-section h2 {
+    font-size: 28px;
+    color: #ff5733;
+}
+
+.featured-restaurants {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.restaurant-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+}
+
+.restaurant-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.restaurant-card h3 {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.restaurant-card p {
+    padding: 0 10px 10px;
+    font-size: 16px;
+    color: #666;
+}
+
+/* Rodapé */
+.footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+}
