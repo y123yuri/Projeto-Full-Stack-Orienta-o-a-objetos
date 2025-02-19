@@ -87,7 +87,7 @@ for comida in tipos_comida:
 ] 
         
         for xpath in lista_xpath:
-            if driver.find_element(By.XPATH, xpath):
+            if driver.find_element(By.XPATH,xpath):
                 time.sleep(3)
                 icone_restaurante = driver.find_element(By.XPATH,xpath )  
                 icone_restaurante.click()
@@ -140,8 +140,9 @@ for comida in tipos_comida:
                     else:
                         descricao = None
                         pass
-                
-                print(nome_restaurante,telefone,descricao)
+
+                horario = [td.get_text(strip=True) for td in soup.find_all("td", class_="SKNSib")]
+                print(nome_restaurante,telefone,descricao, horario)
 
                 # botao_avaliacoes = driver.find_element(By.XPATH,'/html/body/div[2]/div/div[7]/div[2]/div/div[2]/div/div/async-local-kp/div/div/div[1]/div/g-sticky-content-container/div/block-component/div/div[1]/div/div/div/div[1]/div/div/div[5]/div[1]/g-sticky-content/div/div[1]/g-tabs/div/div/a[3]')
                 # botao_avaliacoes.click()
