@@ -88,10 +88,10 @@ for comida in tipos_comida:
         
         for xpath in lista_xpath:
             if driver.find_element(By.XPATH, xpath):
-                
+                time.sleep(3)
                 icone_restaurante = driver.find_element(By.XPATH,xpath )  
                 icone_restaurante.click()
-                time.sleep(2)                                                                       
+                time.sleep(8)                                                                       
                 html = driver.page_source                                                  
                 # Parsear com BeautifulSoup                                                    
                 soup = BeautifulSoup(html, "html.parser")                                       
@@ -100,13 +100,51 @@ for comida in tipos_comida:
                                                        
                 nome_restaurante = soup.find('h2', class_='qrShPb').find_next('span').get_text(strip=True) 
                 endereco = soup.find('span', class_='LrzXr').get_text(strip=True) 
-                telefone = soup.find('span', class_ ='LrzXr zdqRlf kno-fv').find_next('span').get_text(strip=True)
-                
-                
-                print(nome_restaurante,descricao)
+                try:
+                    telefone = soup.find('span', class_ ='LrzXr zdqRlf kno-fv').find_next('span').get_text(strip=True)
+                except:
+                    telefone = None
+                    
+                existencia_botao = False
+                try:
+                    print('TO NO TRY')
+                    time.sleep(3)
+                    botao_descricao = driver.find_element(By.XPATH, '//a[@aria-label="mostrar mais"]')
+                    existencia_botao = True
+                    botao_descricao.click()
+                    time.sleep(5)
 
-                botao_avaliacoes = driver.find_element(By.XPATH,'/html/body/div[2]/div/div[7]/div[2]/div/div[2]/div/div/async-local-kp/div/div/div[1]/div/g-sticky-content-container/div/block-component/div/div[1]/div/div/div/div[1]/div/div/div[5]/div[1]/g-sticky-content/div/div[1]/g-tabs/div/div/a[3]')
-                botao_avaliacoes.click()
+                    html_2 = driver.page_source 
+                    soup_2 = BeautifulSoup(html_2,"html.parser") #esse daqui atualiza a pagina
+                    
+                    time.sleep(3)
+
+                    descricao_element = soup_2.find('div', attrs={"jsname": "EvNWZc"})
+                    descricao = descricao_element.get_text(strip=True)
+                    
+                    
+                except:
+
+                    if existencia_botao == False:
+                        try:
+                            html_2 = driver.page_source 
+                            soup_2 = BeautifulSoup(html_2,"html.parser") #esse daqui atualiza a pagina
+                        
+                            time.sleep(3)
+
+                            descricao_element = soup_2.find('div', attrs={"jsname": "EvNWZc"})
+                            descricao = descricao_element.get_text(strip=True)
+                        except:
+                            print("esse nao tem descricao")
+                            descricao = None
+                    else:
+                        descricao = None
+                        pass
+                
+                print(nome_restaurante,telefone,descricao)
+
+                # botao_avaliacoes = driver.find_element(By.XPATH,'/html/body/div[2]/div/div[7]/div[2]/div/div[2]/div/div/async-local-kp/div/div/div[1]/div/g-sticky-content-container/div/block-component/div/div[1]/div/div/div/div[1]/div/div/div[5]/div[1]/g-sticky-content/div/div[1]/g-tabs/div/div/a[3]')
+                # botao_avaliacoes.click()
                             
             else:
                 print("nao deu")
