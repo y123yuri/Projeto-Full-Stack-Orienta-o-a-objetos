@@ -51,18 +51,37 @@ class Restaurantes(db.Model):
     tipo = db.Column(db.String(60))
     endereco = db.Column(db.String(120))
     horario = db.Column(db.String(60))
-    fotos = db.Column(db.String(120))  # Presumindo que seja o caminho ou URL para fotos
+    fotos = db.Column(db.String(120))  
+    telefone = db.Column(db.String(30))
+    
 
-    def __init__(self, nome, avaliacoes, tipo, endereco, horario, fotos):
+    def __init__(self, nome, avaliacoes, tipo, endereco, horario, fotos,telefone):
+
         self.nome = nome
         self.endereco = endereco
         self.avaliacoes = avaliacoes
         self.fotos = fotos
         self.horario = horario
         self.tipo = tipo
+        self.telefone = telefone
 
     def __repr__(self):
         return f"<Restaurante {self.nome}>"
+
+class Usuario_fake(db.Model):
+    __tablename__="fakes"
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100),nullable=False)
+    avaliacao = db.Column(db.String(1000),nullable=False)
+
+    def __init__(self, nome, avaliacao):
+        self.nome = nome
+        self.avaliacao = avaliacao
+
+
+    def __repr__(self):
+        return f"<Perfil {self.nome}"
+
 
 
 class Perfil(db.Model):
