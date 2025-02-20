@@ -133,16 +133,28 @@ for comida in tipos_comida:
                     
                     time.sleep(5)
                     try:
+
                         botao_descricao = driver.find_element(By.XPATH, '//a[@aria-label="mostrar mais"]')
                         time.sleep(5)
                         botao_descricao.click()
+                        html = driver.page_source 
+                        soup= BeautifulSoup(html,"html.parser") #esse daqui atualiza a pagina
+                        descricao_element = soup.find('div', attrs={"jsname": "EvNWZc"})
+                        descricao = descricao_element.get_text(strip=True)
+                        if descricao[-7:] == '...Mais':
+                            raise Exception("Descrição incompleta, tentando novamente...")
+                        print("peguei a descricao")
                     except:
                         try:
-                            botao_descricao = driver.find_element(By.CLASS_NAME, 'RRYiY')
-                            time.sleep(3)
-                            botao_descricao.click()
+                            descricao_element = soup.find('div', attrs={"jsname": "EvNWZc"})
+                            descricao = descricao_element.get_text(strip=True)
+                            if descricao[-7:] == '...Mais':
+                                print("nao consegui de novo")
+                                raise Exception("Descrição incompleta, tentando novamente...")
+                            
                         except:
-                            continue
+                            descricao = ''
+                            
 
                     time.sleep(5)
 
@@ -151,10 +163,7 @@ for comida in tipos_comida:
                     
                     time.sleep(3)
 
-                    descricao_element = soup.find('div', attrs={"jsname": "EvNWZc"})
-                    descricao = descricao_element.get_text(strip=True)
-                    if descricao[-7:] == '...Mais':
-                        continue
+                    
                     print(f'essa e a descricao {descricao}')
 
                     
@@ -272,7 +281,7 @@ for comida in tipos_comida:
             f.write(f"{listao}\n")
     else:
         with open(arquivo_txt, "a", encoding="utf-8") as f:
-            f.write(f" {listao}\n")
+            f.write(f"@%{listao}\n")
 
                     
 

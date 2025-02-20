@@ -42,6 +42,26 @@ class Comentarios(db.Model):
         return f"<Comentario {self.id}>"
 
 
+class ComentariosFake(db.Model):  
+    __tablename__ = "comentarios_fake"
+
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    conteudo = db.Column(db.Text, nullable=False)
+    restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurantes.id'), nullable=False)
+
+    restaurante = db.relationship("Restaurantes", foreign_keys=[restaurante_id])
+
+    def __init__(self, nome, conteudo, restaurante_id):
+        self.nome = nome
+        self.conteudo = conteudo
+        self.restaurante_id = restaurante_id
+
+    def __repr__(self):
+        return f"<ComentarioFake {self.id} - {self.nome}>"
+
+
+
 class Restaurantes(db.Model):
     __tablename__ = "restaurantes"
 
@@ -54,8 +74,9 @@ class Restaurantes(db.Model):
     fotos = db.Column(db.String(120))  
     telefone = db.Column(db.String(30))
     descricao = db.Column(db.String(1000))
+    link_maps = db.Column(db.String(300))
 
-    def __init__(self, nome, avaliacoes, tipo, endereco, horario, fotos,telefone, descricao):
+    def __init__(self, nome, avaliacoes, tipo, endereco, horario, fotos,telefone, descricao, link_maps):
 
         self.nome = nome
         self.endereco = endereco
@@ -65,24 +86,11 @@ class Restaurantes(db.Model):
         self.tipo = tipo
         self.telefone = telefone
         self.descricao = descricao
+        self.link_maps = link_maps
         
 
     def __repr__(self):
         return f"<Restaurante {self.nome}>"
-
-class Usuario_fake(db.Model):
-    __tablename__="fakes"
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100),nullable=False)
-    avaliacao = db.Column(db.String(1000),nullable=False)
-
-    def __init__(self, nome, avaliacao):
-        self.nome = nome
-        self.avaliacao = avaliacao
-
-
-    def __repr__(self):
-        return f"<Perfil {self.nome}"
 
 
 
