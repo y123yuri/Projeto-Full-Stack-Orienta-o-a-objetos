@@ -53,9 +53,9 @@ class Restaurantes(db.Model):
     horario = db.Column(db.String(60))
     fotos = db.Column(db.String(120))  
     telefone = db.Column(db.String(30))
-    
+    descricao = db.Column(db.String(1000))
 
-    def __init__(self, nome, avaliacoes, tipo, endereco, horario, fotos,telefone):
+    def __init__(self, nome, avaliacoes, tipo, endereco, horario, fotos,telefone, descricao):
 
         self.nome = nome
         self.endereco = endereco
@@ -64,6 +64,8 @@ class Restaurantes(db.Model):
         self.horario = horario
         self.tipo = tipo
         self.telefone = telefone
+        self.descricao = descricao
+        
 
     def __repr__(self):
         return f"<Restaurante {self.nome}>"

@@ -68,7 +68,11 @@ for comida in tipos_comida:
             if resultados:  # Verifica se encontrou algum resultado
                 resultados[0].click()  # Clica no primeiro elemento encontrado
             else:
-                pass
+                search_box = driver.find_element(By.NAME, "q")
+                ActionChains(driver).move_to_element(search_box).perform()  # Simula movimento do mouse
+                search_box.send_keys(f"{comida} Brasília")
+                search_box.send_keys(Keys.RETURN)
+                
         except:
             print("nao enconteri")
         time.sleep(3)
@@ -87,7 +91,10 @@ for comida in tipos_comida:
 ] 
         
         for xpath in lista_xpath:
+            time.sleep(3)
             if driver.find_element(By.XPATH,xpath):
+                
+                print(driver.find_element(By.XPATH,xpath))
                 time.sleep(3)
                 icone_restaurante = driver.find_element(By.XPATH,xpath )  
                 icone_restaurante.click()
@@ -97,63 +104,96 @@ for comida in tipos_comida:
                 soup = BeautifulSoup(html, "html.parser")                                       
                                                                                                     
                 # Buscar os restaurantes
-                                                       
-                nome_restaurante = soup.find('h2', class_='qrShPb').find_next('span').get_text(strip=True) 
-                endereco = soup.find('span', class_='LrzXr').get_text(strip=True) 
-                try:
-                    telefone = soup.find('span', class_ ='LrzXr zdqRlf kno-fv').find_next('span').get_text(strip=True)
-                except:
-                    telefone = None
+                try:                                          
+                    nome_restaurante = soup.find('h2', class_='qrShPb').find_next('span').get_text(strip=True) 
                     
-                existencia_botao = False
-                try:
-                    print('TO NO TRY')
+                    endereco = soup.find('span', class_='LrzXr').get_text(strip=True) 
+                
+                    telefone = soup.find('span', class_ ='LrzXr zdqRlf kno-fv').find_next('span').get_text(strip=True)
+
+                    
                     time.sleep(3)
-                    botao_descricao = driver.find_element(By.XPATH, '//a[@aria-label="mostrar mais"]')
-                    existencia_botao = True
-                    botao_descricao.click()
+                    try:
+                        botao_descricao = driver.find_element(By.XPATH, '//a[@aria-label="mostrar mais"]')
+                        time.sleep(3)
+                        botao_descricao.click()
+                    except:
+                        try:
+                            botao_descricao = driver.find_element(By.XPATH, '//a[@aria-label="mostrar mais"]')
+                            time.sleep(3)
+                            botao_descricao.click()
+                        except:
+                            continue
+
+                    time.sleep(5)
+                    print('abri a descricao')
+
+                    html = driver.page_source 
+                    soup= BeautifulSoup(html,"html.parser") #esse daqui atualiza a pagina
+                    
+                    time.sleep(3)
+
+                    descricao_element = soup.find('div', attrs={"jsname": "EvNWZc"})
+                    descricao = descricao_element.get_text(strip=True)
+                    print(f'essa e a descricao {descricao}')
+
+                    
+                    time.sleep(3)
+                    html = driver.page_source 
+                    soup= BeautifulSoup(html,"html.parser") #esse daqui atualiza a pagina
+
+
+                    horarios = soup.find_all('td', class_='SKNSIb')
+
+                    for horario in horarios:
+                        print(horario.get_text(strip=True))
+                        proximo_td = horario.find_next('td')
+                        if proximo_td:
+                            print(proximo_td.get_text(strip=True))    
+                    
+                    
+                    time.sleep(3)
+                    
+                    links = driver.find_elements(By.CLASS_NAME, 'PbOY2e')
+                    # nomes_span = soup.find_all('span', class_='PbOY2e').get_text(strip=True)
+
+                    
+
+                    if len(links) == 4:
+                        time.sleep(3)
+                        links[1].click()
+                    elif len(links) == 5:
+                        time.sleep(3)
+                        link[2].click()
+                    elif len(links) == 3:
+                        time.sleep(3)
+                        link[0].click()
+                    else:
+                        print(len(links))
+                        print("Menos de 2 links encontrados com a classe 'PbOY2e'.")
+                        continue
+
+                    
+                    print('encontrei bota maps')
+                    
                     time.sleep(5)
 
-                    html_2 = driver.page_source 
-                    soup_2 = BeautifulSoup(html_2,"html.parser") #esse daqui atualiza a pagina
-                    
-                    time.sleep(3)
+                    link_maps = driver.current_url
+                    print(link_maps, 'sou o linkl')
 
-                    descricao_element = soup_2.find('div', attrs={"jsname": "EvNWZc"})
-                    descricao = descricao_element.get_text(strip=True)
-                    
+                    driver.back() 
+                    time.sleep(3)
                     
                 except:
+                    print('NAO ACHOU ALGO')
+                    continue
+                    
 
-                    if existencia_botao == False:
-                        try:
-                            html_2 = driver.page_source 
-                            soup_2 = BeautifulSoup(html_2,"html.parser") #esse daqui atualiza a pagina
-                        
-                            time.sleep(3)
-
-                            descricao_element = soup_2.find('div', attrs={"jsname": "EvNWZc"})
-                            descricao = descricao_element.get_text(strip=True)
-                        except:
-                            print("esse nao tem descricao")
-                            descricao = None
-                    else:
-                        descricao = None
-                        pass
-
-                horario = [td.get_text(strip=True) for td in soup.find_all("td", class_="SKNSib")]
-                print(nome_restaurante,telefone,descricao, horario)
-
-                # botao_avaliacoes = driver.find_element(By.XPATH,'/html/body/div[2]/div/div[7]/div[2]/div/div[2]/div/div/async-local-kp/div/div/div[1]/div/g-sticky-content-container/div/block-component/div/div[1]/div/div/div/div[1]/div/div/div[5]/div[1]/g-sticky-content/div/div[1]/g-tabs/div/div/a[3]')
-                # botao_avaliacoes.click()
+                    
+                
+                print(nome_restaurante,telefone,descricao)
                             
             else:
                 print("nao deu")
                     
-
-
-
-
-
-    
 
