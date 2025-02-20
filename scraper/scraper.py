@@ -9,6 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import random
 from bs4 import BeautifulSoup
 import re
+import os
 
 
 # Lista dos 20 tipos de comida mais famosos no Brasil
@@ -17,7 +18,10 @@ tipos_comida = ["TESTE",
     "comida mexicana", "comida nordestina", "feijoada", "comida mineira", "comida baiana",
     "comida vegetariana", "comida vegana", "comida tailandesa", "hambúrguer artesanal",
     "comida francesa", "pizza",  "comida coreana", "comida peruana", "comida alemã"
+
 ]
+
+
 
 # Configuração do WebDriver
 link='https://www.google.com'
@@ -29,16 +33,16 @@ options.page_load_strategy = 'eager'
 # Link de cada professor e matéria
 driver = webdriver.Firefox(options=options)
 listao = []
-lista_tipo_banco = ["Churrasco", "Japonesa", "Italiana", "Árabe", "Chinesa",
- "mexicana", "nordestina", "feijoada", "mineira", "baiana",
+lista_tipo_banco = ["churrasco", "japonesa", "italiana", "Árabe", "Chinesa",
+ "Mexicana", "Nordestina", "Feijoada", "Mineira", "Baiana",
  "Vegetariana", "Vegana", "Tailandesa", "Hambúrguer",
  "Francesa", "Pizza", "Coreana", "Peruana", "Alemã"]
 
-contador_tipo = 0
+
 
 
 for comida in tipos_comida:
-
+    listao = []
     """Pesquisa um tipo de comida no Google adicionando 'Brasília'"""
     driver.get("https://www.google.com")
     time.sleep(2)  # Tempo aleatório para carregar a página
@@ -53,8 +57,7 @@ for comida in tipos_comida:
     search_box.send_keys(f"{comida} Brasília")
     search_box.send_keys(Keys.RETURN)
     
-    nome_do_tipo = lista_tipo_banco[contador_tipo]
-    print(nome_do_tipo)
+    
 
     if comida == tipos_comida[0]:    
         try:
@@ -104,6 +107,7 @@ for comida in tipos_comida:
 ] 
         
         for xpath in lista_xpath:
+
             time.sleep(3)
             try:
                 
@@ -118,17 +122,19 @@ for comida in tipos_comida:
                                                                                                     
                 # Buscar os restaurantes
                 try:                                          
-                    nome_restaurante = soup.find('h2', class_='qrShPb').find_next('span').get_text(strip=True) 
+                    nome_restaurante = soup.find('h2', class_='qrShPb').find_next('span').get_text(strip=True)
+                    print(nome_restaurante) 
                     
                     endereco = soup.find('span', class_='LrzXr').get_text(strip=True) 
+                    print(endereco) 
                 
                     telefone = soup.find('span', class_ ='LrzXr zdqRlf kno-fv').find_next('span').get_text(strip=True)
-
+                    print(telefone)
                     
-                    time.sleep(3)
+                    time.sleep(5)
                     try:
                         botao_descricao = driver.find_element(By.XPATH, '//a[@aria-label="mostrar mais"]')
-                        time.sleep(3)
+                        time.sleep(5)
                         botao_descricao.click()
                     except:
                         try:
@@ -139,7 +145,6 @@ for comida in tipos_comida:
                             continue
 
                     time.sleep(5)
-                    print('abri a descricao')
 
                     html = driver.page_source 
                     soup= BeautifulSoup(html,"html.parser") #esse daqui atualiza a pagina
@@ -160,12 +165,21 @@ for comida in tipos_comida:
 
                     horarios = soup.find_all('td', class_='SKNSIb')
 
-                    for horario in horarios:
-                        print(horario.get_text(strip=True))
-                        proximo_td = horario.find_next('td')
-                        if proximo_td:
-                            print(proximo_td.get_text(strip=True))    
                     
+                    lista_de_horarios = []
+                    contador_dia = 0
+                    for horario in horarios:      # dia
+                        if contador_dia < 8:
+                            dia = horario.get_text(strip=True)
+                            proximo_td = horario.find_next('td')
+                            horarioo = proximo_td.get_text(strip=True)
+                            conjunto = dia+' '+horarioo
+                            lista_de_horarios.append(conjunto)
+                            contador_dia += 1
+                        else:
+                            break
+                    print(lista_de_horarios)
+                                        
 
                     numero_avaliacao = soup.find('span', class_='fzTgPe Aq14fc').get_text(strip=True)
                     print(numero_avaliacao)
@@ -182,6 +196,8 @@ for comida in tipos_comida:
                     comentarios = comentarios.split("@")
                     print(comentarios)
 
+
+                    lista_fotos = []
                     fotos1 = soup.find_all('div', class_='vwrQge') 
                     fotos = f'{fotos1}'
                     fotos = fotos.replace('<',"")
@@ -191,48 +207,56 @@ for comida in tipos_comida:
                         pos1 = url.find('(')
                         pos2 = url.find(")")
                         link = url[pos1 + 1:pos2]
+                        lista_fotos.append(link)
                         print(link)
 
-
+                    print(lista_fotos)
                     
                         
                     time.sleep(3)
-                    
-                    links = driver.find_elements(By.CLASS_NAME, 'PbOY2e')
-                    
+                    try:
+                        links = driver.find_elements(By.CLASS_NAME, 'PbOY2e')
+                        if len(links) == 4:
+                            time.sleep(5)
+                            links[1].click()
+                        elif len(links) == 5:
+                            time.sleep(5)
+                            link[2].click()
+                        elif len(links) == 3:
+                            time.sleep(5)
+                            link[0].click()
+                        elif len(links) == 6:
+                            time.sleep(5)
+                            link[3].click()
+                        elif len(links) == 7:
+                            time.sleep(5)
+                            link[4].click()
+                            
+                        else:
+                            print(len(links))
+                            print("Menos de 2 links encontrados com a classe 'PbOY2e'.")
 
-                    
+                            continue
+                        print('encontrei bota maps')
+                        time.sleep(5)
 
-                    if len(links) == 4:
-                        time.sleep(3)
-                        links[1].click()
-                    elif len(links) == 5:
-                        time.sleep(3)
-                        link[2].click()
-                    elif len(links) == 3:
-                        time.sleep(3)
-                        link[0].click()
-                    elif len(links) == 6:
-                        time.sleep(3)
-                        link[3].click()
-                    elif len(links) == 7:
-                        time.sleep(3)
-                        link[4].click()
-                    else:
-                        print(len(links))
-                        print("Menos de 2 links encontrados com a classe 'PbOY2e'.")
-                        continue
+                        link_maps = driver.current_url
+                        print(link_maps, 'sou o linkl')
+                        driver.back() 
+                        time.sleep(5)
 
+                    except:
+                        link_maps = ''
+                        pass
+    
                     
-                    print('encontrei bota maps')
-                    time.sleep(5)
+                    restaurante_resultado =[nome_restaurante, endereco, telefone, descricao, numero_avaliacao, comentarios, lista_de_horarios, lista_fotos, link_maps]
+                    
+                    listao.append(restaurante_resultado)
+                        
 
-                    link_maps = driver.current_url
-                    print(link_maps, 'sou o linkl')
-                    driver.back() 
-                    time.sleep(5)
+                    print(restaurante_resultado)
                     
-                    # restaurante_resultado =[nome_restaurante, endereco, telefone, descricao, numero_avaliacao, comentarios]
 
                 except:
                     print('NAO ACHOU ALGO')
@@ -242,18 +266,13 @@ for comida in tipos_comida:
             except:
                 print("nao deu")
 
-
-    if comida == tipos_comida[0]:
-        pass 
+    arquivo_txt = "web_scraper_restaurantes.txt"
+    if not os.path.exists(arquivo_txt):
+        with open(arquivo_txt, "w", encoding="utf-8" ) as f:
+            f.write(f"{listao}\n")
     else:
-        contador_tipo += 1
+        with open(arquivo_txt, "a", encoding="utf-8") as f:
+            f.write(f" {listao}\n")
+
                     
 
-# estrutura lista
-
-# 2 possibilidades
-
-#   1 lista pra cada Genero 
-
-# #   churrasco = [[restaurante], [restaurante]] [
-#         restaurante = [nome, endereco, telefone, descricao, [horario], numero_avaliacao,comentarios,fotos,google maps]

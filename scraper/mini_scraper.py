@@ -57,3 +57,33 @@ except:
     except:
         print('não achei')
         pass
+
+# horarios = soup.find_all('td', class_='SKNSIb')
+
+# lista_de_horarios = []
+# contador_dia = 0
+# for horario in horarios:      # dia
+#     if contador_dia < 8:
+#         dia = horario.get_text(strip=True)
+#         proximo_td = horario.find_next('td')
+#         horarioo = proximo_td.get_text(strip=True)
+#         conjunto = dia+' '+horarioo
+#         lista_de_horarios.append(conjunto)
+#         contador_dia += 1
+#     else:
+#         break
+#     print(lista_de_horarios)
+
+lista_fotos = []
+fotos1 = soup.find_all('div', class_='vwrQge') 
+fotos = f'{fotos1}'
+fotos = fotos.replace('<',"")
+fotos = fotos.replace('>',"")
+fotos = fotos.split(",")
+for url in fotos:
+    pos1 = url.find('(')
+    pos2 = url.find(")")
+    link = url[pos1 + 1:pos2]
+    lista_fotos.append(link)
+    print(link)
+print(lista_fotos)
