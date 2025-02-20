@@ -13,38 +13,38 @@ def home():
 
 @app.route('/cadastro', methods=['GET','POST'])
 def cadastro():
-    if session:
-        return redirect(url_for('home'))
-    else:
-        if request.method == 'POST':
-            usuario = request.form.get('usuario').lower().strip()
-            nome = request.form.get('nome').strip()
-            email = request.form.get('email').lower().strip()
-            senha = request.form.get('senha').strip()
-            
-            # Verifica se já existe um usuário com o mesmo username ou email
-            if User.query.filter_by(username=usuario).first() is not None:
-                flash("Nome de usuário já existe!", "error")
-                return redirect(url_for('cadastro'))
-            
-            if User.query.filter_by(email=email).first() is not None:
-                flash("E-mail já cadastrado!", "error")
-                return redirect(url_for('cadastro'))
+    # if session:
+    #     return redirect(url_for('home'))
+    # else:
+    if request.method == 'POST':
+        usuario = request.form.get('usuario').lower().strip()
+        nome = request.form.get('nome').strip()
+        email = request.form.get('email').lower().strip()
+        senha = request.form.get('senha').strip()
+        
+        # Verifica se já existe um usuário com o mesmo username ou email
+        if User.query.filter_by(username=usuario).first() is not None:
+            flash("Nome de usuário já existe!", "error")
+            return redirect(url_for('cadastro'))
+        
+        if User.query.filter_by(email=email).first() is not None:
+            flash("E-mail já cadastrado!", "error")
+            return redirect(url_for('cadastro'))
 
-            # Criptografa a senha antes de salvar no banco
-            senha_hash = generate_password_hash(senha)
+        # Criptografa a senha antes de salvar no banco
+        senha_hash = generate_password_hash(senha)
 
-            user = User(username=usuario, name=nome, password=senha_hash, email=email) #criar no banco de dados
+        user = User(username=usuario, name=nome, password=senha_hash, email=email) #criar no banco de dados
 
-            perfil = Perfil(user_id=usuario, bio=None,avatar=None)
-            db.session.add(perfil)
-            db.session.add(user)
-            db.session.commit()
+        perfil = Perfil(user_id=usuario, bio=None,avatar=None)
+        db.session.add(perfil)
+        db.session.add(user)
+        db.session.commit()
 
 
-            return redirect(url_for('login'))
+        return redirect(url_for('login'))
 
-        return render_template('cadastro.html')
+    return render_template('cadastro.html')
 
 
 
