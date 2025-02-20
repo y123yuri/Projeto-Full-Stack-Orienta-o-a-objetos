@@ -29,6 +29,14 @@ options.page_load_strategy = 'eager'
 # Link de cada professor e matéria
 driver = webdriver.Firefox(options=options)
 listao = []
+lista_tipo_banco = ["Churrasco", "Japonesa", "Italiana", "Árabe", "Chinesa",
+ "mexicana", "nordestina", "feijoada", "mineira", "baiana",
+ "Vegetariana", "Vegana", "Tailandesa", "Hambúrguer",
+ "Francesa", "Pizza", "Coreana", "Peruana", "Alemã"]
+
+contador_tipo = 0
+
+
 for comida in tipos_comida:
 
     """Pesquisa um tipo de comida no Google adicionando 'Brasília'"""
@@ -45,6 +53,9 @@ for comida in tipos_comida:
     search_box.send_keys(f"{comida} Brasília")
     search_box.send_keys(Keys.RETURN)
     
+    nome_do_tipo = lista_tipo_banco[contador_tipo]
+    print(nome_do_tipo)
+
     if comida == tipos_comida[0]:    
         try:
             caixinha_capctha = driver.find_element(By.XPATH,'/html/body/div[1]/div')
@@ -75,7 +86,8 @@ for comida in tipos_comida:
                 search_box.send_keys(Keys.RETURN)
                 
         except:
-            print("nao enconteri")
+            print("nao enconterei o botao de mais lugares, irei para o proximo tipo de comida")
+            continue
         time.sleep(3)
 
 
@@ -93,7 +105,7 @@ for comida in tipos_comida:
         
         for xpath in lista_xpath:
             time.sleep(3)
-            if driver.find_element(By.XPATH,xpath):
+            try:
                 
                 print(driver.find_element(By.XPATH,xpath))
                 time.sleep(3)
@@ -120,7 +132,7 @@ for comida in tipos_comida:
                         botao_descricao.click()
                     except:
                         try:
-                            botao_descricao = driver.find_element(By.XPATH, '//a[@aria-label="mostrar mais"]')
+                            botao_descricao = driver.find_element(By.CLASS_NAME, 'RRYiY')
                             time.sleep(3)
                             botao_descricao.click()
                         except:
@@ -136,6 +148,8 @@ for comida in tipos_comida:
 
                     descricao_element = soup.find('div', attrs={"jsname": "EvNWZc"})
                     descricao = descricao_element.get_text(strip=True)
+                    if descricao[-7:] == '...Mais':
+                        continue
                     print(f'essa e a descricao {descricao}')
 
                     
@@ -156,17 +170,23 @@ for comida in tipos_comida:
                     numero_avaliacao = soup.find('span', class_='fzTgPe Aq14fc').get_text(strip=True)
                     print(numero_avaliacao)
 
+                    busca_comentarios = soup.find_all(class_="nNlnIb")
+                    comentarios = ''
+                    for falas in busca_comentarios:
+                        comentarios_tratamento = falas.get_text()
+                        comentarios = comentarios_tratamento
 
-                    fotos1 = soup.find_all('div', class_='vwrQge')
-                   
-                    
+                    comentarios = comentarios.replace(comentarios[-28:],'')
+                    comentarios = comentarios.replace('""', '@')
+                    comentarios = comentarios.replace('"',"")
+                    comentarios = comentarios.split("@")
+                    print(comentarios)
+
+                    fotos1 = soup.find_all('div', class_='vwrQge') 
                     fotos = f'{fotos1}'
-
                     fotos = fotos.replace('<',"")
                     fotos = fotos.replace('>',"")
-
                     fotos = fotos.split(",")
-                    
                     for url in fotos:
                         pos1 = url.find('(')
                         pos2 = url.find(")")
@@ -174,13 +194,12 @@ for comida in tipos_comida:
                         print(link)
 
 
-                    # comentario_avalicao = soup.find_all('a', class_='a-no-hover-decoration').get_text(strip=True)
-                    # print(comentario_avalicao)
+                    
                         
                     time.sleep(3)
                     
                     links = driver.find_elements(By.CLASS_NAME, 'PbOY2e')
-                    # nomes_span = soup.find_all('span', class_='PbOY2e').get_text(strip=True)
+                    
 
                     
 
@@ -206,26 +225,35 @@ for comida in tipos_comida:
 
                     
                     print('encontrei bota maps')
-                    
                     time.sleep(5)
 
                     link_maps = driver.current_url
                     print(link_maps, 'sou o linkl')
                     driver.back() 
-                    time.sleep(3)
+                    time.sleep(5)
                     
-
+                    # restaurante_resultado =[nome_restaurante, endereco, telefone, descricao, numero_avaliacao, comentarios]
 
                 except:
                     print('NAO ACHOU ALGO')
                     continue
-                    
-
-                    
-                
-                
-                            
-            else:
+            
+                     
+            except:
                 print("nao deu")
+
+
+    if comida == tipos_comida[0]:
+        pass 
+    else:
+        contador_tipo += 1
                     
 
+# estrutura lista
+
+# 2 possibilidades
+
+#   1 lista pra cada Genero 
+
+# #   churrasco = [[restaurante], [restaurante]] [
+#         restaurante = [nome, endereco, telefone, descricao, [horario], numero_avaliacao,comentarios,fotos,google maps]
