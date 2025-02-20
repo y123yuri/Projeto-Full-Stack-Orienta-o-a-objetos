@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import random
 from bs4 import BeautifulSoup
+import re
 
 
 # Lista dos 20 tipos de comida mais famosos no Brasil
@@ -151,7 +152,31 @@ for comida in tipos_comida:
                         if proximo_td:
                             print(proximo_td.get_text(strip=True))    
                     
+
+                    numero_avaliacao = soup.find('span', class_='fzTgPe Aq14fc').get_text(strip=True)
+                    print(numero_avaliacao)
+
+
+                    fotos1 = soup.find_all('div', class_='vwrQge')
+                   
                     
+                    fotos = f'{fotos1}'
+
+                    fotos = fotos.replace('<',"")
+                    fotos = fotos.replace('>',"")
+
+                    fotos = fotos.split(",")
+                    
+                    for url in fotos:
+                        pos1 = url.find('(')
+                        pos2 = url.find(")")
+                        link = url[pos1 + 1:pos2]
+                        print(link)
+
+
+                    # comentario_avalicao = soup.find_all('a', class_='a-no-hover-decoration').get_text(strip=True)
+                    # print(comentario_avalicao)
+                        
                     time.sleep(3)
                     
                     links = driver.find_elements(By.CLASS_NAME, 'PbOY2e')
@@ -168,6 +193,12 @@ for comida in tipos_comida:
                     elif len(links) == 3:
                         time.sleep(3)
                         link[0].click()
+                    elif len(links) == 6:
+                        time.sleep(3)
+                        link[3].click()
+                    elif len(links) == 7:
+                        time.sleep(3)
+                        link[4].click()
                     else:
                         print(len(links))
                         print("Menos de 2 links encontrados com a classe 'PbOY2e'.")
@@ -180,10 +211,11 @@ for comida in tipos_comida:
 
                     link_maps = driver.current_url
                     print(link_maps, 'sou o linkl')
-
                     driver.back() 
                     time.sleep(3)
                     
+
+
                 except:
                     print('NAO ACHOU ALGO')
                     continue
@@ -191,7 +223,7 @@ for comida in tipos_comida:
 
                     
                 
-                print(nome_restaurante,telefone,descricao)
+                
                             
             else:
                 print("nao deu")
