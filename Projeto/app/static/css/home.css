@@ -1,111 +1,174 @@
-/* Estilos gerais */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
+body {
+  background-color: #f3f4f6;
+  color: #333;
+  padding: 20px;
+}
 /* Container principal */
 .container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
+  width: 80%;
+  margin: auto;
+  padding: 20px;
 }
 
 /* Cabeçalho */
-.header {
-    background-color: #ff5733;
-    color: white;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
+.titulo {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff6347;
+  color: white;
+  height: 5em;
+  width: 97%;
+  margin-top: -0.1em;
+  margin-left: 0.2em;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.escrita {
+  position: fixed;
 }
 
-/* Barra de navegação */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #222;
-    padding: 10px 20px;
+.search {
+  margin-top: -100em;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
+.div_background {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10%;
+  width: 100%;
+  height: 35em;
+  margin-left: 0.2em;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.highlights {
+  position: fixed;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 65%;
+  height: 35em;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  z-index: 10;
+}
+.restaurant-list {
+  margin-left: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+.restaurant_card {
+  display: flex;
+  flex-direction: column; /* Organiza os elementos em coluna */
+}
+.nome_restaurante {
+  position: relative;
+  margin-left: 35%;
+  top: -18em;
+  text-align: center;
+  font-weight: bold;
+  padding: 15px;
+  background: white;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-right: 15px;
 }
 
-.navbar a:hover {
-    color: #ff5733;
+.fotos_restaurante {
+  width: 30%;
+  margin-bottom: 10px;
+}
+.search {
+  margin-left: 60em;
+  margin-top: 2%;
+}
+.estrelas {
+  position: relative;
+  top: -75px;
+}
+/* Estiliza o botão de abrir */
+.open-modal {
+  position: fixed;
+  display: flex;
+  font-weight: bolder;
+  margin-top: 15px;
+  margin-left: 1.5%;
+  padding: 10px 20px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
-/* Banner principal */
-.banner {
-    background: url('/static/images/home-banner.jpg') center/cover no-repeat;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+/* Modal - Fundo escuro */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Garante que o modal fique no topo */
 }
 
-/* Seção de destaque */
-.featured-section {
-    margin: 40px 0;
-    text-align: center;
+/* Caixa branca do modal */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10000; /* Garante que o conteúdo do modal esteja acima do fundo escuro */
 }
 
-.featured-section h2 {
-    font-size: 28px;
-    color: #ff5733;
+/* Botão de fechar (X) */
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: black;
 }
 
-.featured-restaurants {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+/* Links do menu */
+.menu a {
+  display: block;
+  margin: 10px 0;
+  text-decoration: none;
+  color: #ff6347;
+  font-size: 18px;
 }
 
-.restaurant-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 300px;
-    text-align: center;
-}
-
-.restaurant-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.restaurant-card h3 {
-    margin: 10px 0;
-    font-size: 20px;
-}
-
-.restaurant-card p {
-    padding: 0 10px 10px;
-    font-size: 16px;
-    color: #666;
-}
-
-/* Rodapé */
-.footer {
-    background-color: #222;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 40px;
+.menu a:hover {
+  text-decoration: underline;
 }

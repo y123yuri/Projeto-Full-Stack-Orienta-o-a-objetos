@@ -27,8 +27,31 @@
     {% endif %} {% endwith %}
 
     <div id="box_titulo">
-      <h1>Cadastro</h1>
+      <h1 class="escrito">Cadastro</h1>
+      <button class="open-modal" onclick="openModal()">☰</button>
+
+      <div class="modal" id="menuModal">
+        <div class="modal-content">
+          <button class="close-modal" onclick="closeModal()">×</button>
+          <h2>Menu</h2>
+          <div class="menu">
+            <a href="/">Home</a>
+            <a href="cadastro">Cadastro</a>
+            <a href="login">Login</a>
+          </div>
+        </div>
+      </div>
     </div>
+    <script>
+      function openModal() {
+        document.getElementById("menuModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("menuModal").style.display = "none";
+      }
+    </script>
+
     <div class="form-container">
       <form id="cadastroForm" method="POST" action="/cadastro">
         <label for="nome">Nome</label>

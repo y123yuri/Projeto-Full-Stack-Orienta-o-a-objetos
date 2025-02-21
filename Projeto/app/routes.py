@@ -3,7 +3,7 @@ from flask import render_template, redirect, request, flash, session, url_for
 from app.models.tables import User,Perfil,Restaurantes
 from werkzeug.security import check_password_hash, generate_password_hash
 
-
+@app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html')
@@ -13,9 +13,8 @@ def home():
 
 @app.route('/cadastro', methods=['GET','POST'])
 def cadastro():
-    # if session:
-    #     return redirect(url_for('home'))
-    # else:
+    if 'usuario_id' in session:
+        return redirect(url_for('perfil'))
     if request.method == 'POST':
         usuario = request.form.get('usuario').lower().strip()
         nome = request.form.get('nome').strip()
@@ -50,8 +49,8 @@ def cadastro():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if session:
-        return redirect(url_for('home'))
+    if 'usuario_id' in session:
+        return redirect(url_for('perfil'))
     else:
         if request.method == 'POST':
             info = request.form.get('usuario').strip().lower()  # Permite login com email ou username
