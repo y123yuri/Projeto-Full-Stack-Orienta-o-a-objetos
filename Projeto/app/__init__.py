@@ -20,6 +20,7 @@ from app.models import tables
 from app import routes 
 
 
+
 #flask db init,flask db migrate
 
 #toda vez que a gente mudar no banco de dados, a gente da esse comando flask db upgrade

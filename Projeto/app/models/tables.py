@@ -75,6 +75,7 @@ class Restaurantes(db.Model):
     telefone = db.Column(db.String(30))
     descricao = db.Column(db.String(1000))
     link_maps = db.Column(db.String(300))
+    
 
     def __init__(self, nome, avaliacoes, tipo, endereco, horario, fotos,telefone, descricao, link_maps):
 
