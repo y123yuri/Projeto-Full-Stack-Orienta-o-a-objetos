@@ -38,10 +38,6 @@ body {
   position: fixed;
 }
 
-.search {
-  margin-top: -100em;
-}
-
 .div_background {
   position: fixed;
   display: flex;
@@ -121,11 +117,17 @@ body {
   flex-direction: column;
   background-color: rgb(255, 255, 255);
   margin-left: 4em;
-  margin-top: 40%;
+  margin-top: 5%;
   width: 22em;
   justify-content: center;
   gap: 1em;
-  
+}
+#resultados {
+  max-height: 380px; /* Altura máxima para a lista */
+  overflow-y: auto; /* Ativa a rolagem vertical quando necessário */
+  border: 1px solid #ffffff; /* Apenas para visualização */
+  padding: 5px;
+  list-style: none;
 }
 
 .campo_busca {
@@ -133,7 +135,7 @@ body {
   margin-left: 0em;
   width: 100%;
   border-radius: 10px;
-  border-color:#007bff;
+  border-color: #007bff;
   text-align: center;
 }
 
@@ -147,9 +149,8 @@ body {
   border-radius: 15px;
   background-color: #ff6347;
   color: white;
-  border-color: #ff6347 ;
+  border-color: #ff6347;
 }
-
 
 .estrelas {
   position: relative;
@@ -159,114 +160,113 @@ body {
   width: 100px;
 }
 
-footer{
+footer {
   position: fixed;
   margin-top: 50.75%;
-  
 }
 
-.descricao{
-  text-align: center;
-  font-size: 14px;
+.descricao {
+  position: absolute;
+  font-size: medium;
   color: #666;
   margin-top: 5em;
-  max-width: 80%;
-  }
-  
-  /* Estiliza o botão de abrir */
-  .open-modal {
-    position: fixed;
-    display: flex;
-    font-weight: bolder;
-    margin-top: 15px;
-    margin-left: 1.5%;
-    padding: 10px 20px;
-    background-color: #ff6347;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 1.2%;
-  }
-  
-  /* Modal - Fundo escuro */
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Garante que o modal fique no topo */
-  }
-  
-  /* Caixa branca do modal */
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    position: relative;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10000; /* Garante que o conteúdo do modal esteja acima do fundo escuro */
-  }
-  
-  /* Botão de fechar (X) */
-  .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: black;
-  }
-  
-  /* Links do menu */
-  .menu a {
-    display: block;
-    margin: 10px 0;
-    text-decoration: none;
-    color: #ff6347;
-    font-size: 18px;
-  }
-  
-  .menu a:hover {
-    text-decoration: underline;
-  }
-  
-  .texto{
-    position: fixed;
-    font-size: medium;
-    margin-top: 6%;
-    text-align: center;
-    margin-left: 16.5%;  
-  }
+  margin-left: 35%;
+  width: 30em;
+}
 
-  p {
-  font-family: 'Poppins', sans-serif; /* Escolha uma fonte bonita */
+/* Estiliza o botão de abrir */
+.open-modal {
+  position: fixed;
+  display: flex;
+  font-weight: bolder;
+  margin-top: 15px;
+  margin-left: 1.5%;
+  padding: 10px 20px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 1.2%;
+}
+
+/* Modal - Fundo escuro */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Garante que o modal fique no topo */
+}
+
+/* Caixa branca do modal */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10000; /* Garante que o conteúdo do modal esteja acima do fundo escuro */
+}
+
+/* Botão de fechar (X) */
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: black;
+}
+
+/* Links do menu */
+.menu a {
+  display: block;
+  margin: 10px 0;
+  text-decoration: none;
+  color: #ff6347;
+  font-size: 18px;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+.texto {
+  position: fixed;
+  font-size: medium;
+  margin-top: 6%;
+  text-align: center;
+  margin-left: 16.5%;
+}
+
+p {
+  font-family: "Poppins", sans-serif; /* Escolha uma fonte bonita */
   font-size: 20px; /* Ajuste o tamanho do texto */
   color: #333; /* Cor principal */
   text-align: center; /* Centraliza o texto */
   line-height: 1.6; /* Espaçamento entre linhas */
 }
 
-
 span {
   font-weight: bold;
 }
 
 p:hover {
-  color: #FF5733; /* Muda de cor ao passar o mouse */
+  color: #ff5733; /* Muda de cor ao passar o mouse */
   transition: color 0.3s ease-in-out;
 }
 
@@ -275,6 +275,6 @@ p {
 }
 
 .highlight {
-  color: #FF5733;
-  text-shadow: 0px 0px 10px #FF5733; /* Efeito Glow */
+  color: #ff5733;
+  text-shadow: 0px 0px 10px #ff5733; /* Efeito Glow */
 }

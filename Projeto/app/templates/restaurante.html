@@ -61,17 +61,21 @@
         <div>
           
           {% if restaurante.link_maps != '' %}
-          <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d122856.74605884224!2d-47.9692774996445!3d-15.789536084964947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x935a3b9a9a13c0ed%3A0x4cb4490f06298cf!2sSHN%20Q.%202%200%20-%20SHN%20Q.2%20-%20Asa%20Norte%2C%20Bras%C3%ADlia%20-%20DF%2C%2070705-911!3m2!1d-15.7895516!2d-47.8868757!5e0!3m2!1spt-BR!2sbr!4v1740156453107!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d122856.74605884224!2d-47.9692774996445!3d-15.789536084964947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x935a3b9a9a13c0ed%3A0x4cb4490f06298cf!2sSHN%20Q.%202%200%20-%20SHN%20Q.2%20-%20Asa%20Norte%2C%20Bras%C3%ADlia%20-%20DF%2C%2070705-911!3m2!1d-15.7895516!2d-47.8868757!5e0!3m2!1spt-BR!2sbr!4v1740156453107!5m2!1spt-BR!2sbr" 
+          width="550" 
+          height="350" 
+          style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           
       {% else %}
           <h2>Não há um mapa disponível</h2>
       {% endif %}
       
+        <h3>📜 Endereço</h3>
+        <p class="laranja">{{ restaurante.endereco }}</p>
+
         <h3>📞 Telefone</h3>
         <p class="laranja">{{ restaurante.telefone }}</p>
 
-        <h3>📜 Endereço</h3>
-        <p class="laranja">{{ restaurante.endereco }}</p>
        
         </div>
 
@@ -84,7 +88,7 @@
       </section>
 
       <section class="reviews">
-        <h2>💬 Avaliações</h2>
+        <h2 style="text-align: center;">💬 Avaliações</h2>
         
         
         <section class="comentario">
@@ -123,6 +127,7 @@
             scrollParaNovoComentario();
           }
         </script>
+        
       
         <form id="comentarioForm">
           <textarea id="comentarioInput" placeholder="Deixe seu comentário..." required></textarea>

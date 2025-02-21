@@ -33,7 +33,6 @@ header {
   position: absolute;
 }
 
-
 /* Estilização do botão de favorito */
 .favorite {
   position: absolute;
@@ -76,19 +75,20 @@ header {
   /* flex: 1; Define que ambos ocupam o mesmo espaço */
 }
 
-.reviews{
+.reviews {
   position: absolute;
   margin-top: 40em;
   margin-left: 1%;
   width: 45em;
+  height: 25em;
 }
-#comentario{
+#comentario {
   position: relative;
   margin-left: 10em;
   margin-top: 30em;
   z-index: 3;
-
 }
+
 #comentariosLista {
   margin-top: 0em;
   height: 200px;
@@ -97,7 +97,7 @@ header {
   padding: 10px;
 }
 
-#comentarioInput{
+#comentarioInput {
   width: 49em;
 }
 
@@ -246,8 +246,8 @@ button:hover {
 }
 
 .descricao {
-  background: #ff6347; /* Cor de fundo igual aos botões */
-  color: white; /* Texto branco para contraste */
+  background: #ffffff; /* Cor de fundo igual aos botões */
+  color: rgb(0, 0, 0); /* Texto branco para contraste */
   padding: 15px; /* Espaço interno */
   border-radius: 10px; /* Bordas arredondadas */
   text-align: center; /* Centraliza o texto */
@@ -257,7 +257,7 @@ button:hover {
   max-width: 80%; /* Evita que fique muito largo */
   margin: 10px auto; /* Centraliza horizontalmente */
 }
-.Maps{
+.Maps {
   position: absolute;
   text-align: center; /* Centraliza o conteúdo */
   display: flex;
@@ -276,6 +276,7 @@ button:hover {
 .info {
   position: absolute;
   text-align: center; /* Centraliza o conteúdo */
+  justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center; /* Centraliza os itens no eixo horizontal */
