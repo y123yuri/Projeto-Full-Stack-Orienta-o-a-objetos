@@ -139,16 +139,13 @@ for comida in tipos_comida:
                         soup= BeautifulSoup(html,"html.parser") #esse daqui atualiza a pagina
                         descricao_element = soup.find('div', attrs={"jsname": "EvNWZc"})
                         descricao = descricao_element.get_text(strip=True)
-                        if descricao[-7:] == '...Mais':
-                            raise Exception("Descrição incompleta, tentando novamente...")
+                        print('tentando pega a descricao', {descricao})
+                        
                         print("peguei a descricao")
                     except:
                         try:
                             descricao_element = soup.find('div', attrs={"jsname": "EvNWZc"})
                             descricao = descricao_element.get_text(strip=True)
-                            if descricao[-7:] == '...Mais':
-                                print("nao consegui de novo")
-                                raise Exception("Descrição incompleta, tentando novamente...")
                             
                         except:
                             descricao = ''

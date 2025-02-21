@@ -2,6 +2,8 @@ from app import app, db
 from flask import render_template, redirect, request, flash, session, url_for, jsonify
 from app.models.tables import *
 from werkzeug.security import check_password_hash, generate_password_hash
+import json
+import re
 
 @app.route('/')
 @app.route('/home')
@@ -14,6 +16,46 @@ def home():
 
 
 
+@app.route('/buscar', methods=['GET'])
+def buscar():
+    termo = request.args.get('q', '').strip().lower()
+    
+    if len(termo) < 3:
+        return jsonify([])  # Retorna lista vazia se não houver termo
+
+    # Filtrando restaurantes que contêm o termo digitado
+    restaurantes_filtrados = Restaurantes.query.filter(Restaurantes.nome.ilike(f"%{termo}%")).all()
+
+    # Convertendo os resultados para JSON
+    resultados = [{"id": r.id, "nome": r.nome} for r in restaurantes_filtrados]
+
+    return jsonify(resultados)
+
+@app.route('/tipos_comida', methods=['GET'])
+def tipos_comida():
+    tipos = Restaurantes.query.with_entities(Restaurantes.tipo).distinct().all()
+    tipos_lista = [tipo[0].capitalize() for tipo in tipos]  # Convertendo tuplas para lista
+    return jsonify(tipos_lista)
+
+
+@app.route('/filtro', methods=['GET'])
+def filtro():
+    termo = request.args.get('q', '').strip().lower()
+    tipo = request.args.get('tipo', '').strip().lower()
+
+    query = Restaurantes.query
+
+    if termo:
+        query = query.filter(Restaurantes.nome.ilike(f"%{termo}%"))
+
+    if tipo:
+        query = query.filter(Restaurantes.tipo.ilike(f"%{tipo}%"))
+
+    restaurantes_filtrados = query.all()
+
+    resultados = [{"id": r.id, "nome": r.nome} for r in restaurantes_filtrados]
+
+    return jsonify(resultados)
 
 @app.route('/cadastro', methods=['GET','POST'])
 def cadastro():
@@ -84,6 +126,8 @@ def logout():
 
 @app.route('/restaurante/<int:restaurante_id>')
 def restaurante(restaurante_id):
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
     restaurante = Restaurantes.query.get(restaurante_id)
     comentarios = ComentariosFake.query.filter_by(restaurante_id=restaurante_id).all()
     comentarios_reais = Comentarios.query.filter_by(restaurante_id=restaurante_id).all()
@@ -104,11 +148,36 @@ def restaurante(restaurante_id):
     if not restaurante:
         flash("Restaurante não encontrado.", "error")
         return redirect(url_for('home'))
-    restaurante.fotos = restaurante.fotos.strip("[]").replace("'", "").split(",") 
+    try:
+        fotos = json.loads(restaurante.fotos)  # Se já estiver como string no banco
+    except json.JSONDecodeError:
+        fotos = restaurante.fotos.strip("[]").replace("'", "").split(", ") 
+    import re
 
-    
+    if restaurante.link_maps and "google.com/maps" in restaurante.link_maps:
+        match = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', restaurante.link_maps)
+        place_id_match = re.search(r'!1s([^!]+)', restaurante.link_maps)
 
-    return render_template('restaurante.html', restaurante=restaurante, comentarios_fake = comentarios_processados, comentarios= comentarios_reais)
+        if match:
+            lat, lon = match.groups()
+            embed_url = f"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d{lon}!3d{lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1"
+            restaurante.link_maps = embed_url
+        
+        elif place_id_match:
+            place_id = place_id_match.group(1)
+            embed_url = f"https://www.google.com/maps/embed?pb=!1m2!1m1!1s{place_id}"
+            restaurante.link_maps = embed_url
+        
+        else:
+            print("Erro: Link do Google Maps inválido.")
+    else:
+        print("Nenhum link de mapa disponível.")
+    print("URL gerada para embed:", restaurante.link_maps)
+
+
+
+
+    return render_template('restaurante.html', restaurante=restaurante, comentarios_fake = comentarios_processados, comentarios= comentarios_reais,fotos=json.dumps(fotos))
 
 
 @app.route('/perfil')
@@ -130,33 +199,36 @@ def perfil():
 
 
 
-@app.route('/adicionar_comentario/<int:restaurante_id>', methods=['POST'])
-def adicionar_comentario(restaurante_id):
-    data = request.get_json()
-    usuario = User.query.get(session['usuario_id'])
-    if not data or "conteudo" not in data:
-        return jsonify({"status": "error", "message": "Comentário inválido"}), 400
+@app.route('/adicionar_comentario', methods=['POST'])
+def adicionar_comentario():
+    if 'usuario_id' not in session:
+        return jsonify({"error": "Usuário não autenticado"}), 403
 
-    comentario_texto = data["conteudo"].strip()
+    usuario_id = session['usuario_id']
+    restaurante_id = request.form.get('restaurante_id')
+    conteudo = request.form.get('conteudo').strip()
 
-    if comentario_texto:
-        novo_comentario = Comentarios(
-            user_id= usuario.id, # Troque para usuário autenticado se houver login
-            conteudo=comentario_texto,
-            restaurante_id=restaurante_id,
-            likes = 0
-        )
-        db.session.add(novo_comentario)
-        db.session.commit()
+    if not conteudo:
+        return jsonify({"error": "Comentário não pode estar vazio"}), 400
 
-        return jsonify({
-            "status": "success",
-            "user": novo_comentario.user_id,
-            "conteudo": novo_comentario.conteudo
-        }), 201
+    usuario = User.query.get(usuario_id)  # Obtendo o usuário autenticado
+    if not usuario:
+        return jsonify({"error": "Usuário não encontrado"}), 404
 
-    return jsonify({"status": "error", "message": "Comentário vazio"}), 400
+    # Criando e adicionando o comentário ao banco de dados
+    novo_comentario = Comentarios(
+        conteudo=conteudo,
+        user_id=usuario_id,
+        likes=0,  # Comentário inicia sem curtidas
+        restaurante_id=restaurante_id
+    )
 
+    db.session.add(novo_comentario)
+    db.session.commit()
 
-
-
+    # Retornando o comentário recém-criado para exibição no frontend
+    return jsonify({
+        "id": novo_comentario.id,
+        "username": usuario.username,
+        "conteudo": novo_comentario.conteudo
+    })

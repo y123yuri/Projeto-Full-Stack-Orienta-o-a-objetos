@@ -47,6 +47,7 @@
       function closeModal() {
         document.getElementById("menuModal").style.display = "none";
       }
+
     </script>
 
     <main class="content">
@@ -68,29 +69,31 @@
                 </a>
               </div>
 
-              <!-- <div class="descricao">
+              <div class="descricao">
                 {% if restaurante.descricao %}
                 <p >{{ restaurante.descricao }}</p>
+                {%else%}
+                <p >{{ restaurante.endereco }}</p>
+                <p >{{ restaurante.tipo }}</p>
+                <p >{{ restaurante }}</p>
                 {% endif %}
-              </div>   -->
+              </div>  
 
-              <p class="estrelas">⭐ {{ restaurante.avaliacoes }} / 5</p>
+              <p class="estrelas">⭐ {{ restaurante.avaliacoes }} / 5 </p>
             </div>
             {% endfor %}
           </div>
         </div>
         <div class="search_fundo">
           <div class="search">
-            <h2>Busque por um Restaurante</h2>
-            <form action="/buscar" method="GET">
-              <input
-                class="campo_busca"
-                type="text"
-                name="q"
-                placeholder="Digite o nome ou localização" />
-              <button class="submit">Buscar</button>
-            </form>
+              <h2>Busque por um Restaurante</h2>
+              <input type="text" id="search" placeholder="Buscar restaurante..." required>
+              <select id="tipo_comida">
+                <option value="">Todos os Tipos</option>
+              </select>
+              <ul id="resultados"></ul> 
           </div>
+      </div>
         </div>
       </div>
     </main>
@@ -98,5 +101,6 @@
     <footer>
       <p>&copy; 2025 Recomendações de Restaurantes</p>
     </footer>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
   </body>
 </html>

@@ -12,7 +12,6 @@
       <button class="favorite" data-id="{{ restaurante.id }}" onclick="toggleFavorite('{{ restaurante.id }}')">♡</button>
       <h1 class="titulo">{{ restaurante.nome }}</h1>
       <span class="rating">⭐ {{ restaurante.avaliacoes }} / 5 </span>
-      <!-- <a href="home" class="botao-voltar">⮜--</a> -->
       <button class="open-modal" onclick="openModal()">☰</button>
 
       <div class="modal" id="menuModal">
@@ -31,6 +30,8 @@
         </div>
       </div>
     </header>
+    
+  
     <script>
       function openModal() {
         document.getElementById("menuModal").style.display = "flex";
@@ -41,81 +42,101 @@
       }
     </script>
 
-
     <!-- Galeria de imagens -->
     <section class="gallery">
       <h2>📸 Fotos</h2>
-      <div class="slider">
-        <img src="{{ restaurante.fotos[0] }}" alt="Foto do restaurante" class="active" />
-        <img src="{{ restaurante.fotos[1] }}" alt="Prato especial" />
-        <img src="{{ restaurante.fotos[2] }}" alt="Ambiente do restaurante" />
-        <img src="{{ restaurante.fotos[3] }}" alt="Foto do " />
-        <img src="{{ restaurante.fotos[4] }}" alt="Prato" />
-        <img src="{{ restaurante.fotos[5] }}" alt="Ambiente do" />
-        <div class="slider-buttons">
-          <button onclick="prevSlide()">❮</button>
-          <button onclick="nextSlide()">❯</button>
-        </div>
-      </div>
-      <div class="thumbnails">
-        <img src="{{ restaurante.fotos[0] }}" onclick="goToSlide(0)" class="active" />
-        <img src="{{ restaurante.fotos[1] }}" onclick="goToSlide(1)" />
-        <img src="{{ restaurante.fotos[2] }}" onclick="goToSlide(2)" />
-        <img src="{{ restaurante.fotos[3] }}" onclick="goToSlide(3)" />
-        <img src="{{ restaurante.fotos[4] }}" onclick="goToSlide(4)" />
-        <img src="{{ restaurante.fotos[5] }}" onclick="goToSlide(5)" />
+      <div class="slider" id="imageSlider"></div>
+      <div class="thumbnails" id="thumbnails"></div>
+
+      <div class="slider-buttons">
+        <button onclick="prevSlide()">❮</button>
+        <button onclick="nextSlide()">❯</button>
       </div>
     </section>
 
     <main class="content">
+      
+      <section class="Maps">
+        <h2 class="localizacao">Localização📍</h2>
+        <div>
+          
+          {% if restaurante.link_maps != '' %}
+          <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d122856.74605884224!2d-47.9692774996445!3d-15.789536084964947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x935a3b9a9a13c0ed%3A0x4cb4490f06298cf!2sSHN%20Q.%202%200%20-%20SHN%20Q.2%20-%20Asa%20Norte%2C%20Bras%C3%ADlia%20-%20DF%2C%2070705-911!3m2!1d-15.7895516!2d-47.8868757!5e0!3m2!1spt-BR!2sbr!4v1740156453107!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          
+      {% else %}
+          <h2>Não há um mapa disponível</h2>
+      {% endif %}
+      
+        <h3>📞 Telefone</h3>
+        <p class="laranja">{{ restaurante.telefone }}</p>
+
+        <h3>📜 Endereço</h3>
+        <p class="laranja">{{ restaurante.endereco }}</p>
+       
+        </div>
+
+      </section>
+      
       <section class="info">
         <p class="descricao">
           {{ restaurante.descricao | default("O restaurante não possui descrição", true) }}
         </p>
-
-        <h2>📍 Localização</h2>
-
-        {% if restaurante.link_maps %}
-        <a href="{{ restaurante.link_maps }}" class="laranja" target="_blank">Ver no Google Maps</a>
-        {% else %}
-        <span class="laranja">Não possui link</span>
-        {% endif %}
-
-        <h2>📞 Telefone</h2>
-        <p class="laranja">{{ restaurante.telefone }}</p>
-
-        <h2>📜 Endereço</h2>
-        <p class="laranja">{{restaurante.endereco}}</p>
       </section>
-      
+
       <section class="reviews">
         <h2>💬 Avaliações</h2>
-        <div class="comment">
-        {%for comentario in comentarios_fake %}
-          <strong>{{comentario.nome}}:</strong> {{comentario.conteudo}}
-        </div>
-        <div class="comment">
-        </div>
-        <divdiv>
-        {%endfor%}
-        <section class="reviews">
+        
+        
+        <section class="comentario">
           <div id="comentariosLista">
-              {% for comentario in comentarios %}
-                  <div class="comment">
-                      <strong>{{ comentario.user.username }}:</strong> "{{ comentario.conteudo }}"
-                  </div>
-              {% endfor %}
+           
+            {% for comentario in comentarios_fake %}
+             <div class="comment">
+          <strong>{{ comentario.nome }}:</strong> {{ comentario.conteudo }}
+        </div>
+        {% endfor %}
+            {% for comentario in comentarios %}
+            <div class="comment">
+              <strong>{{ comentario.user.username }}:</strong> "{{ comentario.conteudo }}"
+            </div>
+            {% endfor %}
           </div>
-      </section>
-
-
-        <form id="comentarioForm" action="{{ url_for('adicionar_comentario', restaurante_id=restaurante.id) }}">
-          <textarea id="comentarioTexto" placeholder="Deixe seu comentário..." required></textarea>
+          </div>
+        </section>
+        
+        <script>
+          function scrollParaNovoComentario() {
+            var comentariosLista = document.getElementById("comentariosLista");
+            comentariosLista.scrollTop = comentariosLista.scrollHeight;
+          }
+        
+          // Simulação de um novo comentário sendo adicionado
+          function adicionarComentario() {
+            var novoComentario = document.createElement("div");
+            novoComentario.classList.add("comment");
+            novoComentario.innerHTML = `<strong>Usuário:</strong> "Novo comentário de teste"`;
+            
+            var lista = document.getElementById("comentariosLista");
+            lista.appendChild(novoComentario);
+        
+            // Rolagem automática para o novo comentário
+            scrollParaNovoComentario();
+          }
+        </script>
+      
+        <form id="comentarioForm">
+          <textarea id="comentarioInput" placeholder="Deixe seu comentário..." required></textarea>
+          <input type="hidden" id="restauranteId" value="{{ restaurante.id }}">
           <button type="submit">Enviar</button>
         </form>
       </section>
     </main>
-    <script src="/static/js/restaurante.js"></script>
+
+    <!-- Variável fotos antes do script -->
+    <script>
+      var fotos = JSON.parse('{{ fotos | safe }}');
+    </script>
     
+    <script src="/static/js/restaurante.js"></script>
   </body>
 </html>
