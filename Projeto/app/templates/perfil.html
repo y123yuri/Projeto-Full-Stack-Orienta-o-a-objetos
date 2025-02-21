@@ -7,9 +7,30 @@
     <link rel="stylesheet" href="/static/css/perfil.css" />
   </head>
   <body>
-    <header>
-      <h1>👤 {{ usuario.name }}</h1>
-    </header>
+    <div id="box_titulo">
+      <h1 class="escrita">{{ usuario.name }}</h1>
+      <button class="open-modal" onclick="openModal()">☰</button>
+
+      <div class="modal" id="menuModal">
+        <div class="modal-content">
+          <button class="close-modal" onclick="closeModal()">×</button>
+          <h2>Menu</h2>
+          <div class="menu">
+            <a href="/">Home</a>
+            <a href="/">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function openModal() {
+        document.getElementById("menuModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("menuModal").style.display = "none";
+      }
+    </script>
 
     <main class="content">
       <section class="profile-info">
@@ -18,9 +39,9 @@
           alt="Foto de perfil"
           class="avatar" />
         <h2 class="profile-username">{{ usuario.username }}</h2>
-        <p class="profile-email">📧 Email: {{ usuario.email }}</p>
-        <p class="profile-bio">📃 Biografia: {{ perfil.bio }}</p>
-        <p>⭐ Avaliações feitas: 10</p>
+        <p class="profile">📧 Email: {{ usuario.email }}</p>
+        <p class="profile">📃 Biografia: {{ perfil.bio }}</p>
+        <p class="profile">⭐ Avaliações feitas: 10</p>
       </section>
 
       <section class="favorites">
@@ -43,20 +64,13 @@
       </section>
     </main>
 
-    <section class="account-settings">
-      <h2>Configurações da Conta ⚙️</h2>
+    <div class="account-settings">
       <button class="change-password">Alterar Senha</button>
       <button class="edit-username">Alterar Username</button>
       <button class="delete-account">Excluir Conta</button>
+      <a class="botao_logout" href="{{ url_for('logout') }}">Sair</a>
+    </div>
 
-      <h2>Mensagens 📩</h2>
-      <button class="open-messages">Ver Mensagens</button>
-
-      <h2>Meus Cupons 🎟️</h2>
-      <button class="view-coupons">Ver Cupons</button>
-    </section>
-
-    <a class="btn_sair" href="{{ url_for('logout') }}">Sair</a>
     <script src="/static/js/perfil.js"></script>
   </body>
 </html>

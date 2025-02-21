@@ -10,9 +10,35 @@
     <header>
       <!-- Botão de favorito -->
       <button class="favorite" onclick="toggleFavorite()">♡</button>
-      <h1>Nome do restaurante</h1>
+      <h1 class="titulo">Nome do restaurante</h1>
       <span class="rating">⭐ 4.5 / 5</span>
+      <!-- <a href="home" class="botao-voltar">⮜--</a> -->
+      <button class="open-modal" onclick="openModal()">☰</button>
+
+      <div class="modal" id="menuModal">
+        <div class="modal-content">
+          <button class="close-modal" onclick="closeModal()">×</button>
+          <h2>Menu</h2>
+          <div class="menu">
+            <a href="{{ url_for('home') }}">Home</a>
+            {% if session.get('usuario_id') %}
+            <a href="{{ url_for('perfil') }}">Perfil</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </header>
+    <script>
+      function openModal() {
+        document.getElementById("menuModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("menuModal").style.display = "none";
+      }
+    </script>
 
     <!-- Galeria de imagens -->
     <section class="gallery">
@@ -21,6 +47,9 @@
         <img src="restaurante1.jpg" alt="Foto do restaurante" class="active" />
         <img src="restaurante2.jpg" alt="Prato especial" />
         <img src="restaurante3.jpg" alt="Ambiente do restaurante" />
+        <img src="restaurante4.jpg" alt="Foto do " />
+        <img src="restaurante5.jpg" alt="Prato" />
+        <img src="restaurante6.jpg" alt="Ambiente do" />
         <div class="slider-buttons">
           <button onclick="prevSlide()">❮</button>
           <button onclick="nextSlide()">❯</button>
@@ -30,21 +59,31 @@
         <img src="restaurante1.jpg" onclick="goToSlide(0)" class="active" />
         <img src="restaurante2.jpg" onclick="goToSlide(1)" />
         <img src="restaurante3.jpg" onclick="goToSlide(2)" />
+        <img src="restaurante4.jpg" onclick="goToSlide(3)" />
+        <img src="restaurante5.jpg" onclick="goToSlide(4)" />
+        <img src="restaurante6.jpg" onclick="goToSlide(5)" />
       </div>
     </section>
 
     <main class="content">
       <section class="info">
+        <p class="descricao">
+          Um ambiente aconchegante, com pratos deliciosos e um atendimento
+          impecável. Venha conhecer e desfrutar de uma experiência gastronômica
+          única!
+        </p>
+
         <h2>📍 Localização</h2>
-        <a
-          href="https://www.google.com/maps"
-          class="botao-localizacao"
-          target="_blank"
+
+        <a href="https://www.google.com/maps" class="laranja" target="_blank"
           >Ver no Google Maps</a
         >
 
-        <h2>📜 Cardápio</h2>
-        <a href="" class="botao-cardapio">Ver Cardápio Completo</a>
+        <h2>📞 Telefone</h2>
+        <p class="laranja">(61)994323423</p>
+
+        <h2>📜 Endereço</h2>
+        <p class="laranja">endereçooo</p>
       </section>
 
       <section class="reviews">
@@ -55,6 +94,7 @@
         <div class="comment">
           <strong>Ana:</strong> "O melhor risoto que já comi, recomendo!"
         </div>
+        <div class="comment"><strong>Lena:</strong> "Hummmmm!"</div>
         <form>
           <textarea placeholder="Deixe seu comentário..."></textarea>
           <button type="submit">Enviar</button>

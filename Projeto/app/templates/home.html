@@ -1,59 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='css/home.css') }}" />
-</head>
-<body>
-    <header>
-        <h1>🍽️ Descubra os Melhores Restaurantes</h1>
-    </header>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/home.css') }}" />
+  </head>
+  <body>
+    <div class="titulo">
+      <h1 class="escrita">Melhores Restaurantes</h1>
+    </div>
+    <div>
+      <button class="open-modal" onclick="openModal()">☰</button>
 
-    <nav>
-        <ul>
-            <li><a href="/">🏠 Início</a></li>
-            <li><a href="/restaurantes">📍 Restaurantes</a></li>
-            <li><a href="/perfil">👤 Meu Perfil</a></li>
-            <li><a href="/login">🔑 Login</a></li>
-        </ul>
-    </nav>
+      <div class="modal" id="menuModal">
+        <div class="modal-content">
+          <button class="close-modal" onclick="closeModal()">×</button>
+          <h2>Menu</h2>
+          <div class="menu">
+            <a href="/">Home</a>
+            <a href="login">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function openModal() {
+        document.getElementById("menuModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("menuModal").style.display = "none";
+      }
+    </script>
 
     <main class="content">
-        <section class="highlights">
-            <h2>⭐ Restaurantes em Destaque</h2>
-            <div class="restaurant-list">
-                <div class="restaurant-card">
-                    <img src="/static/images/restaurante1.jpg" alt="Restaurante 1">
-                    <h3>Restaurante A</h3>
-                    <p>⭐ 4.7 / 5</p>
-                </div>
-                <div class="restaurant-card">
-                    <img src="/static/images/restaurante2.jpg" alt="Restaurante 2">
-                    <h3>Restaurante B</h3>
-                    <p>⭐ 4.5 / 5</p>
-                </div>
-                <div class="restaurant-card">
-                    <img src="/static/images/restaurante3.jpg" alt="Restaurante 3">
-                    <h3>Restaurante C</h3>
-                    <p>⭐ 4.8 / 5</p>
-                </div>
+      <div class="div_background">
+        <div class="highlights">
+          <div class="restaurant-list">
+            <div class="restaurant-card">
+              <img
+                class="fotos_restaurante"
+                src="/static/images/restaurante1.jpg"
+                alt="Restaurante 1" />
+              <div class="nome_restaurante">Restaurante A</div>
+              <p class="estrelas">⭐ 4.7 / 5</p>
             </div>
-        </section>
-
-        <section class="search">
-            <h2>🔍 Busque por um Restaurante</h2>
-            <form action="/buscar" method="GET">
-                <input type="text" name="q" placeholder="Digite o nome ou localização">
-                <button type="submit">Buscar</button>
-            </form>
-        </section>
+            <div class="restaurant-card">
+              <img
+                class="fotos_restaurante"
+                src="/static/images/restaurante2.jpg"
+                alt="Restaurante 2" />
+              <div class="nome_restaurante">Restaurante B</div>
+              <p class="estrelas">⭐ 4.5 / 5</p>
+            </div>
+            <div class="restaurant-card">
+              <img
+                class="fotos_restaurante"
+                src="/static/images/restaurante3.jpg"
+                alt="Restaurante 3" />
+              <div class="nome_restaurante">Restaurante C</div>
+              <p class="estrelas">⭐ 4.8 / 5</p>
+            </div>
+          </div>
+        </div>
+        <div class="search">
+          <h2>Busque por um Restaurante 🔎</h2>
+          <form action="/buscar" method="GET">
+            <input
+              type="text"
+              name="q"
+              placeholder="Digite o nome ou localização" />
+            <button type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Recomendações de Restaurantes</p>
+      <p>&copy; 2025 Recomendações de Restaurantes</p>
     </footer>
-</body>
+  </body>
 </html>
