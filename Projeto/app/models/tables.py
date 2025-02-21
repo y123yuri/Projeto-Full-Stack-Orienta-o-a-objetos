@@ -73,7 +73,7 @@ class Restaurantes(db.Model):
     horario = db.Column(db.String(60))
     fotos = db.Column(db.String(120))  
     telefone = db.Column(db.String(30))
-    descricao = db.Column(db.String(1000))
+    descricao = db.Column(db.String(5000))
     link_maps = db.Column(db.String(300))
     
 

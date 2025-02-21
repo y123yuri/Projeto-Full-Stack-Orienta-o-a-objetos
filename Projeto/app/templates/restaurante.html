@@ -9,9 +9,9 @@
   <body>
     <header>
       <!-- Botão de favorito -->
-      <button class="favorite" onclick="toggleFavorite()">♡</button>
-      <h1 class="titulo">Nome do restaurante</h1>
-      <span class="rating">⭐ 4.5 / 5</span>
+      <button class="favorite" data-id="{{ restaurante.id }}" onclick="toggleFavorite('{{ restaurante.id }}')">♡</button>
+      <h1 class="titulo">{{ restaurante.nome }}</h1>
+      <span class="rating">⭐ {{ restaurante.avaliacoes }} / 5 </span>
       <!-- <a href="home" class="botao-voltar">⮜--</a> -->
       <button class="open-modal" onclick="openModal()">☰</button>
 
@@ -41,67 +41,81 @@
       }
     </script>
 
+
     <!-- Galeria de imagens -->
     <section class="gallery">
       <h2>📸 Fotos</h2>
       <div class="slider">
-        <img src="restaurante1.jpg" alt="Foto do restaurante" class="active" />
-        <img src="restaurante2.jpg" alt="Prato especial" />
-        <img src="restaurante3.jpg" alt="Ambiente do restaurante" />
-        <img src="restaurante4.jpg" alt="Foto do " />
-        <img src="restaurante5.jpg" alt="Prato" />
-        <img src="restaurante6.jpg" alt="Ambiente do" />
+        <img src="{{ restaurante.fotos[0] }}" alt="Foto do restaurante" class="active" />
+        <img src="{{ restaurante.fotos[1] }}" alt="Prato especial" />
+        <img src="{{ restaurante.fotos[2] }}" alt="Ambiente do restaurante" />
+        <img src="{{ restaurante.fotos[3] }}" alt="Foto do " />
+        <img src="{{ restaurante.fotos[4] }}" alt="Prato" />
+        <img src="{{ restaurante.fotos[5] }}" alt="Ambiente do" />
         <div class="slider-buttons">
           <button onclick="prevSlide()">❮</button>
           <button onclick="nextSlide()">❯</button>
         </div>
       </div>
       <div class="thumbnails">
-        <img src="restaurante1.jpg" onclick="goToSlide(0)" class="active" />
-        <img src="restaurante2.jpg" onclick="goToSlide(1)" />
-        <img src="restaurante3.jpg" onclick="goToSlide(2)" />
-        <img src="restaurante4.jpg" onclick="goToSlide(3)" />
-        <img src="restaurante5.jpg" onclick="goToSlide(4)" />
-        <img src="restaurante6.jpg" onclick="goToSlide(5)" />
+        <img src="{{ restaurante.fotos[0] }}" onclick="goToSlide(0)" class="active" />
+        <img src="{{ restaurante.fotos[1] }}" onclick="goToSlide(1)" />
+        <img src="{{ restaurante.fotos[2] }}" onclick="goToSlide(2)" />
+        <img src="{{ restaurante.fotos[3] }}" onclick="goToSlide(3)" />
+        <img src="{{ restaurante.fotos[4] }}" onclick="goToSlide(4)" />
+        <img src="{{ restaurante.fotos[5] }}" onclick="goToSlide(5)" />
       </div>
     </section>
 
     <main class="content">
       <section class="info">
         <p class="descricao">
-          Um ambiente aconchegante, com pratos deliciosos e um atendimento
-          impecável. Venha conhecer e desfrutar de uma experiência gastronômica
-          única!
+          {{ restaurante.descricao | default("O restaurante não possui descrição", true) }}
         </p>
 
         <h2>📍 Localização</h2>
 
-        <a href="https://www.google.com/maps" class="laranja" target="_blank"
-          >Ver no Google Maps</a
-        >
+        {% if restaurante.link_maps %}
+        <a href="{{ restaurante.link_maps }}" class="laranja" target="_blank">Ver no Google Maps</a>
+        {% else %}
+        <span class="laranja">Não possui link</span>
+        {% endif %}
 
         <h2>📞 Telefone</h2>
-        <p class="laranja">(61)994323423</p>
+        <p class="laranja">{{ restaurante.telefone }}</p>
 
         <h2>📜 Endereço</h2>
-        <p class="laranja">endereçooo</p>
+        <p class="laranja">{{restaurante.endereco}}</p>
       </section>
-
+      
       <section class="reviews">
         <h2>💬 Avaliações</h2>
         <div class="comment">
-          <strong>João:</strong> "Ótima comida e atendimento excelente!"
+        {%for comentario in comentarios_fake %}
+          <strong>{{comentario.nome}}:</strong> {{comentario.conteudo}}
         </div>
         <div class="comment">
-          <strong>Ana:</strong> "O melhor risoto que já comi, recomendo!"
         </div>
-        <div class="comment"><strong>Lena:</strong> "Hummmmm!"</div>
-        <form>
-          <textarea placeholder="Deixe seu comentário..."></textarea>
+        <divdiv>
+        {%endfor%}
+        <section class="reviews">
+          <div id="comentariosLista">
+              {% for comentario in comentarios %}
+                  <div class="comment">
+                      <strong>{{ comentario.user.username }}:</strong> "{{ comentario.conteudo }}"
+                  </div>
+              {% endfor %}
+          </div>
+      </section>
+
+
+        <form id="comentarioForm" action="{{ url_for('adicionar_comentario', restaurante_id=restaurante.id) }}">
+          <textarea id="comentarioTexto" placeholder="Deixe seu comentário..." required></textarea>
           <button type="submit">Enviar</button>
         </form>
       </section>
     </main>
     <script src="/static/js/restaurante.js"></script>
+    
   </body>
 </html>

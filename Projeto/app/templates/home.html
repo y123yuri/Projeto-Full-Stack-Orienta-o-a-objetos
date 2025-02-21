@@ -10,17 +10,10 @@
   </head>
   <body>
 
-
-
-    {% for restaurante in restaurantes %}
-    <a href="{{ url_for('restaurante', restaurante_id=restaurante.id) }}">
-        {{ restaurante.nome }}
-    </a><br>
-    {% endfor %}
-
     <div class="titulo">
       <h1 class="escrita">Melhores Restaurantes</h1>
     </div>
+
     <div>
       <button class="open-modal" onclick="openModal()">☰</button>
 
@@ -40,6 +33,7 @@
         </div>
       </div>
     </div>
+
     <script>
       function openModal() {
         document.getElementById("menuModal").style.display = "flex";
@@ -54,41 +48,43 @@
       <div class="div_background">
         <div class="highlights">
           <div class="restaurant-list">
+            {% for restaurante in restaurantes %}
+            
+            
             <div class="restaurant-card">
               <img
                 class="fotos_restaurante"
-                src="/static/images/restaurante1.jpg"
-                alt="Restaurante 1" />
-              <div class="nome_restaurante">Restaurante A</div>
-              <p class="estrelas">⭐ 4.7 / 5</p>
+                src="{{ restaurante.fotos[0] }}"
+                alt="{{ restaurante.nome }}" />
+              
+              <div class="nome_restaurante">
+                <a href="{{ url_for('restaurante', restaurante_id=restaurante.id) }}">
+                  {{ restaurante.nome }}
+                </a>
+              </div>
+
+              <!-- <div class="descricao">
+                {% if restaurante.descricao %}
+                <p >{{ restaurante.descricao }}</p>
+                {% endif %}
+              </div>   -->
+
+              <p class="estrelas">⭐ {{ restaurante.avaliacoes }} / 5</p>
             </div>
-            <div class="restaurant-card">
-              <img
-                class="fotos_restaurante"
-                src="/static/images/restaurante2.jpg"
-                alt="Restaurante 2" />
-              <div class="nome_restaurante">Restaurante B</div>
-              <p class="estrelas">⭐ 4.5 / 5</p>
-            </div>
-            <div class="restaurant-card">
-              <img
-                class="fotos_restaurante"
-                src="/static/images/restaurante3.jpg"
-                alt="Restaurante 3" />
-              <div class="nome_restaurante">Restaurante C</div>
-              <p class="estrelas">⭐ 4.8 / 5</p>
-            </div>
+            {% endfor %}
           </div>
         </div>
-        <div class="search">
-          <h2>Busque por um Restaurante 🔎</h2>
-          <form action="/buscar" method="GET">
-            <input
-              type="text"
-              name="q"
-              placeholder="Digite o nome ou localização" />
-            <button type="submit">Buscar</button>
-          </form>
+        <div class="search_fundo">
+          <div class="search">
+            <h2>Busque por um Restaurante 🔎</h2>
+            <form action="/buscar" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Digite o nome ou localização" />
+              <button type="submit">Buscar</button>
+            </form>
+          </div>
         </div>
       </div>
     </main>
@@ -96,5 +92,6 @@
     <footer>
       <p>&copy; 2025 Recomendações de Restaurantes</p>
     </footer>
+
   </body>
 </html>
