@@ -89,7 +89,7 @@ body {
 .nome_restaurante {
   position: relative;
   margin-left: 35%;
-  top:-26.5em;
+  top: -26.5em;
   text-align: center;
   font-weight: bold;
   padding: 15px;
@@ -104,7 +104,7 @@ body {
   width: 30%;
   padding-top: 10px;
 }
-.search_fundo{
+.search_fundo {
   position: fixed;
   background-color: aqua;
   width: 33%;
@@ -114,13 +114,31 @@ body {
   border-bottom-right-radius: 10px;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
+
 .search {
   background-color: rgb(255, 255, 255);
-  margin-left: 2.5em;
+  margin-left: 4em;
   margin-top: 2%;
-  width: 25em;
+  width: 22em;
   justify-content: center;
+  gap: 1em;
 }
+
+.campo_busca {
+  position: relative;
+  margin-left: 0em;
+  width: 100%;
+}
+.submit {
+  position: relative;
+  margin-left: 9em;
+  width: 5em;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 15px;
+  background-color: #ff6347;
+}
+
 .estrelas {
   position: relative;
   top: -57px;

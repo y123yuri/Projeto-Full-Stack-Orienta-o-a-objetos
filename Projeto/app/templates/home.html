@@ -9,7 +9,6 @@
       href="{{ url_for('static', filename='css/home.css') }}" />
   </head>
   <body>
-
     <div class="titulo">
       <h1 class="escrita">Melhores Restaurantes</h1>
     </div>
@@ -49,16 +48,16 @@
         <div class="highlights">
           <div class="restaurant-list">
             {% for restaurante in restaurantes %}
-            
-            
+
             <div class="restaurant-card">
               <img
                 class="fotos_restaurante"
                 src="{{ restaurante.fotos[0] }}"
                 alt="{{ restaurante.nome }}" />
-              
+
               <div class="nome_restaurante">
-                <a href="{{ url_for('restaurante', restaurante_id=restaurante.id) }}">
+                <a
+                  href="{{ url_for('restaurante', restaurante_id=restaurante.id) }}">
                   {{ restaurante.nome }}
                 </a>
               </div>
@@ -76,13 +75,14 @@
         </div>
         <div class="search_fundo">
           <div class="search">
-            <h2>Busque por um Restaurante 🔎</h2>
+            <h2>Busque por um Restaurante</h2>
             <form action="/buscar" method="GET">
               <input
+                class="campo_busca"
                 type="text"
                 name="q"
                 placeholder="Digite o nome ou localização" />
-              <button type="submit">Buscar</button>
+              <button class="submit">Buscar</button>
             </form>
           </div>
         </div>
@@ -92,6 +92,5 @@
     <footer>
       <p>&copy; 2025 Recomendações de Restaurantes</p>
     </footer>
-
   </body>
 </html>
