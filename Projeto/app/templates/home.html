@@ -20,8 +20,13 @@
           <button class="close-modal" onclick="closeModal()">×</button>
           <h2>Menu</h2>
           <div class="menu">
-            <a href="/">Home</a>
-            <a href="login">Login</a>
+            <a href="{{ url_for('home') }}">Home</a>
+            {% if session.get('usuario_id') %}
+            <a href="{{ url_for('perfil') }}">Perfil</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('cadastro') }}">Cadastro</a>
+            {% endif %}
           </div>
         </div>
       </div>

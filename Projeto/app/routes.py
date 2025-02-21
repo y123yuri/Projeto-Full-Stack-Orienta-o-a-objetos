@@ -13,7 +13,7 @@ def home():
 
 @app.route('/cadastro', methods=['GET','POST'])
 def cadastro():
-    if session:
+    if 'usuario_id' in session:
         return redirect(url_for('perfil'))
     if request.method == 'POST':
         usuario = request.form.get('usuario').lower().strip()
