@@ -78,15 +78,14 @@ def logout():
 
 
 
-@app.route('/restaurante')
-def restaurante():
-    restaurante_info = {
-        "nome": "Pizzaria Itália",
-        "localizacao": "Rua das Flores, 45 - SP",  # isso aqui é so um exemplo, aqui vai os dados dos restaurantes cadastrados
-        "avaliacao": 4.8,
-        "especialidade": "Pizza Italiana"
-    }
-    return render_template('restaurante.html', restaurante=restaurante_info)
+@app.route('/restaurante/<int:restaurante_id>')
+def restaurante(restaurante_id):
+    restaurante = Restaurantes.query.get(restaurante_id)
+    if not restaurante:
+        flash("Restaurante não encontrado.", "error")
+        return redirect(url_for('home'))
+
+    return render_template('restaurante.html', restaurante=restaurante)
 
 
 @app.route('/perfil')

@@ -39,8 +39,6 @@ lista_tipo_banco = ["churrasco", "japonesa", "italiana", "Árabe", "Chinesa",
  "Francesa", "Pizza", "Coreana", "Peruana", "Alemã"]
 
 
-
-
 for comida in tipos_comida:
     listao = []
     """Pesquisa um tipo de comida no Google adicionando 'Brasília'"""

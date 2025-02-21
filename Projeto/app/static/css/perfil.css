@@ -202,6 +202,7 @@ button:hover {
   font-size: 20px;
   cursor: pointer;
   color: black;
+  width: 2em;
 }
 
 /* Links do menu */

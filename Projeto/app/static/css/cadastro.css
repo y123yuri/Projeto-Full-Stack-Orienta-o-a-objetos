@@ -104,6 +104,7 @@ button:hover {
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
+  width: 2em;
 }
 
 /* Modal - Fundo escuro */

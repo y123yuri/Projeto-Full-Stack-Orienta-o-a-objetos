@@ -9,6 +9,15 @@
       href="{{ url_for('static', filename='css/home.css') }}" />
   </head>
   <body>
+
+
+
+    {% for restaurante in restaurantes %}
+    <a href="{{ url_for('restaurante', restaurante_id=restaurante.id) }}">
+        {{ restaurante.nome }}
+    </a><br>
+    {% endfor %}
+
     <div class="titulo">
       <h1 class="escrita">Melhores Restaurantes</h1>
     </div>
@@ -24,8 +33,8 @@
             {% if session.get('usuario_id') %}
             <a href="{{ url_for('perfil') }}">Perfil</a>
             {% else %}
-            <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('cadastro') }}">Cadastro</a>
+            <a href="{{ url_for('login') }}">Login</a>
             {% endif %}
           </div>
         </div>
