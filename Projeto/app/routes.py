@@ -4,6 +4,8 @@ from app.models.tables import *
 from werkzeug.security import check_password_hash, generate_password_hash
 import json
 import re
+from flask_socketio import SocketIO
+
 
 @app.route('/')
 @app.route('/home')

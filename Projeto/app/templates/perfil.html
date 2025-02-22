@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil</title>
     <link rel="stylesheet" href="/static/css/perfil.css" />
+    <link
+      rel="shortcut icon"
+      href="../static/images/pizza.png"
+      type="images/x-icon" />
   </head>
   <body>
     <div id="box_titulo">
-      <h1 class="escrita">{{ usuario.name }}</h1>
+      <h1 class="escrita">Perfil</h1>
       <button class="open-modal" onclick="openModal()">☰</button>
 
       <div class="modal" id="menuModal">
@@ -35,12 +39,13 @@
     <main class="content">
       <section class="profile-info">
         <img
-          src="/static/images/user-avatar.png"
+          src="{{ url_for('static', filename='../static/images/pessoa.jpg') }}"
           alt="Foto de perfil"
           class="avatar" />
-        <h2 class="profile-username">{{ usuario.username }}</h2>
+        <h1 class="nome">{{ usuario.name }}</h1>
+        <p class="profile-username">👤 Usuario: {{ usuario.username }}</p>
         <p class="profile">📧 Email: {{ usuario.email }}</p>
-      
+        <a class="botao_logout" href="{{ url_for('logout') }}">Deslogar</a>
       </section>
 
       <section class="favorites">
@@ -52,16 +57,9 @@
 
       <section class="reviews">
         <h2>💬 Últimas Avaliações</h2>
-        <div class="comment">
-          <strong>Ainda nao possui comentário</strong> 
-        </div>
-       
+        <div class="comment">Ainda nao possui comentário</div>
       </section>
     </main>
-
-    <div class="account-settings">
-      <a class="botao_logout" href="{{ url_for('logout') }}">Sair</a>
-    </div>
 
     <script src="/static/js/perfil.js"></script>
   </body>

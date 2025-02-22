@@ -79,19 +79,20 @@ body {
 }
 .reviews {
   padding: 1em;
+  height: 10em;
 }
 .avatar {
   display: flex;
   width: 150px;
   height: 200px;
   border-radius: 50%;
-  border: 3px solid #ff6347;
+  border: none;
   margin-left: 10em;
   margin-top: 1%;
 }
 .profile-username {
-  margin-top: -8em;
-  margin-left: 20em;
+  margin-top: -7em;
+  margin-left: 30em;
 }
 .profile {
   margin-left: 30em;
@@ -99,6 +100,12 @@ body {
 }
 .profile-info {
   height: 15em;
+}
+
+.nome {
+  position: absolute;
+  margin-left: 20em;
+  margin-top: -7em;
 }
 button {
   background: #ff6347;
@@ -147,6 +154,7 @@ button:hover {
   flex-direction: column;
   justify-content: left;
   padding: 1em;
+  height: 10em;
 }
 /* Estiliza o botão de abrir */
 .open-modal {
@@ -219,6 +227,7 @@ button:hover {
   text-decoration: underline;
 }
 .botao_logout {
+  position: absolute;
   background: #ff6347;
   color: white;
   padding: 10px 15px;
@@ -227,4 +236,6 @@ button:hover {
   cursor: pointer;
   font-size: 16px;
   transition: 0.3s;
+  margin-left: 80em;
+  margin-top: 1em;
 }
