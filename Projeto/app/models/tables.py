@@ -1,4 +1,5 @@
 from app import db
+from sqlalchemy.ext.declarative import declared_attr
 
 class User(db.Model):
     __tablename__ = "users"
@@ -17,49 +18,6 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
-
-
-class Comentarios(db.Model):
-    __tablename__ = "comentarios"
-
-    id = db.Column(db.Integer, primary_key=True)
-    conteudo = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurantes.id'), nullable=False)
-    likes = db.Column(db.Integer, default=0)
-
-    # Relacionamentos
-    restaurante = db.relationship("Restaurantes", foreign_keys=[restaurante_id])
-    user = db.relationship("User", foreign_keys=[user_id])
-
-    def __init__(self, conteudo, user_id, likes, restaurante_id):
-        self.conteudo = conteudo
-        self.user_id = user_id
-        self.likes = likes
-        self.restaurante_id = restaurante_id
-
-    def __repr__(self):
-        return f"<Comentario {self.id}>"
-
-
-class ComentariosFake(db.Model):  
-    __tablename__ = "comentarios_fake"
-
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    conteudo = db.Column(db.Text, nullable=False)
-    restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurantes.id'), nullable=False)
-
-    restaurante = db.relationship("Restaurantes", foreign_keys=[restaurante_id])
-
-    def __init__(self, nome, conteudo, restaurante_id):
-        self.nome = nome
-        self.conteudo = conteudo
-        self.restaurante_id = restaurante_id
-
-    def __repr__(self):
-        return f"<ComentarioFake {self.id} - {self.nome}>"
-
 
 
 class Restaurantes(db.Model):
@@ -113,3 +71,63 @@ class Perfil(db.Model):
 
     def __repr__(self):
         return f"<Perfil {self.id} - User {self.user_id}>"
+
+class ComentarioBase(db.Model):
+    __abstract__ = True  # Define esta classe como abstrata (não será criada como tabela)
+    
+    id = db.Column(db.Integer, primary_key=True)
+    conteudo = db.Column(db.Text, nullable=False)
+
+    @declared_attr
+    def restaurante_id(cls):
+        return db.Column(db.Integer, db.ForeignKey('restaurantes.id'), nullable=False)
+
+    @declared_attr
+    def restaurante(cls):
+        return db.relationship("Restaurantes", foreign_keys=[cls.restaurante_id])
+
+    def __repr__(self):
+        return f"<Comentario {self.id}>"
+
+
+class Comentarios(ComentarioBase):
+    __tablename__ = "comentarios"
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    likes = db.Column(db.Integer, default=0)
+
+    user = db.relationship("User", foreign_keys=[user_id])
+
+    def __init__(self, conteudo, user_id, restaurante_id, likes=0):
+        self.conteudo = conteudo
+        self.user_id = user_id
+        self.restaurante_id = restaurante_id
+        self.likes = likes
+
+    def __repr__(self):
+        return f"<Comentario {self.id} - User {self.user_id}>"
+
+
+
+class ComentariosFake(ComentarioBase):
+    __tablename__ = "comentarios_fake"
+
+    nome = db.Column(db.String(100), nullable=False)
+
+    def __init__(self, nome, conteudo, restaurante_id):
+        self.nome = nome
+        self.conteudo = conteudo
+        self.restaurante_id = restaurante_id
+
+    def __repr__(self):
+        return f"<ComentarioFake {self.id} - {self.nome}>"
+
+
+
+# Herança: ComentarioBase → Comentarios (Especialização da classe base para comentários reais).
+# Herança: ComentarioBase → ComentariosFake (Especialização da classe base para comentários falsos).
+# Composição: User → Perfil (Cada usuário tem um perfil exclusivo, que só existe junto com o usuário).
+# Associação: Restaurantes ↔ Comentarios (Um restaurante pode ter vários comentários reais).
+# Associação: Restaurantes ↔ ComentariosFake (Um restaurante pode ter vários comentários falsos).
+# Associação: User ↔ Comentarios (Um usuário pode fazer vários comentários).
+#Dependência: User → Perfil (O usuário pode existir sem o perfil, mas o perfil depende do usuário para existir).

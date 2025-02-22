@@ -9,9 +9,19 @@ import re
 @app.route('/home')
 def home():
     restaurantes_lista = Restaurantes.query.all()
+    contador = 0
+    
     for restaurante in restaurantes_lista:
+
         # Remove colchetes e aspas extras das URLs
+        if len(restaurante.fotos) < 6:
+            continue
         restaurante.fotos = restaurante.fotos.strip("[]").replace("'", "").split(",") 
+        restaurante.tipo = restaurante.tipo.capitalize()
+        print(restaurante.nome)
+        
+        
+    
     return render_template('home.html', restaurantes = restaurantes_lista)
 
 
@@ -20,7 +30,7 @@ def home():
 def buscar():
     termo = request.args.get('q', '').strip().lower()
     
-    if len(termo) < 3:
+    if not termo:
         return jsonify([])  # Retorna lista vazia se não houver termo
 
     # Filtrando restaurantes que contêm o termo digitado
@@ -152,30 +162,7 @@ def restaurante(restaurante_id):
         fotos = json.loads(restaurante.fotos)  # Se já estiver como string no banco
     except json.JSONDecodeError:
         fotos = restaurante.fotos.strip("[]").replace("'", "").split(", ") 
-    import re
-
-    if restaurante.link_maps and "google.com/maps" in restaurante.link_maps:
-        match = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', restaurante.link_maps)
-        place_id_match = re.search(r'!1s([^!]+)', restaurante.link_maps)
-
-        if match:
-            lat, lon = match.groups()
-            embed_url = f"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d{lon}!3d{lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1"
-            restaurante.link_maps = embed_url
-        
-        elif place_id_match:
-            place_id = place_id_match.group(1)
-            embed_url = f"https://www.google.com/maps/embed?pb=!1m2!1m1!1s{place_id}"
-            restaurante.link_maps = embed_url
-        
-        else:
-            print("Erro: Link do Google Maps inválido.")
-    else:
-        print("Nenhum link de mapa disponível.")
-    print("URL gerada para embed:", restaurante.link_maps)
-
-
-
+    
 
     return render_template('restaurante.html', restaurante=restaurante, comentarios_fake = comentarios_processados, comentarios= comentarios_reais,fotos=json.dumps(fotos))
 

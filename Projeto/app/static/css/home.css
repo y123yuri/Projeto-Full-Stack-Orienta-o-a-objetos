@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
+
+/* @media (min-width: 1500px) {
+   html {
+    transform: scale(1.25);
+    transform-origin: 0 0;
+  }
+}  */
+  
+
 * {
   margin: 0;
   padding: 0;
@@ -29,7 +38,7 @@ body {
   color: white;
   height: 5em;
   width: 97%;
-  top: 1%em;
+  top: 1%;
   margin-left: 0.2em;
   border-radius: 10px;
   font-weight: bold;
@@ -95,32 +104,67 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
   margin-right: 15px;
+  cursor: pointer;
+}
+
+.endereco {
+  width: 500px;  /* Define o tamanho do seu contêiner */
+    height: 1.2em;  /* Limita a altura para uma linha */
+    line-height: 1.2em;  /* Define a altura da linha */
+    overflow: hidden;  /* Esconde o texto que ultrapassar */
+    text-overflow: ellipsis;  /* Adiciona as reticências */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;  /* Limita o texto a 1 linha */
+    -webkit-box-orient: vertical;  /* Orienta o corte vertical */
 }
 
 .fotos_restaurante {
   width: 30%;
   padding-top: 10px;
+  max-height: 180px;
+  border-radius: 40px;
 }
 .search_fundo {
   position: fixed;
-  background-color: rgb(255, 255, 255);
+  background-color: #ff6347;
   width: 32%;
   height: 35em;
-  margin-left: 58em;
+  margin-left: 62em;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 50px 0;
+  text-align: center;
+  background-image: linear-gradient(to bottom, #FF5733, #FF7F32)
 }
 
 .search {
   display: flex;
   flex-direction: column;
-  background-color: rgb(255, 255, 255);
   margin-left: 4em;
-  margin-top: 5%;
+  margin-top: 5%; 
   width: 22em;
   justify-content: center;
   gap: 1em;
+  border-color: #ff6347;
+  background-color: #ffffff;  /* Fundo branco para a área de busca */
+  max-width: 600px; /* Limita a largura máxima */
+  margin: 0 auto;  /* Centraliza a caixa */
+  border-radius: 8px;  /* Bordas arredondadas */
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#search{
+  text-align: center;
+  border-radius: 10px;
+}
+.modal_lista{
+  text-align: center;
+}
+.div_aleatoria{
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 #resultados {
   max-height: 380px; /* Altura máxima para a lista */
@@ -128,6 +172,7 @@ body {
   border: 1px solid #ffffff; /* Apenas para visualização */
   padding: 5px;
   list-style: none;
+  text-align: center;
 }
 
 .campo_busca {
@@ -188,7 +233,7 @@ footer {
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
-  margin-top: 1.2%;
+  margin-top: 0.2%;
 }
 
 /* Modal - Fundo escuro */

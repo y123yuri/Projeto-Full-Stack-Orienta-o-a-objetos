@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="titulo">
-      <h1 class="escrita">Melhores Restaurantes</h1>
+      <h1 class="escrita"> UnFood </h1>
     </div>
 
     <p class="texto">
@@ -62,22 +62,18 @@
                 src="{{ restaurante.fotos[0] }}"
                 alt="{{ restaurante.nome }}" />
 
-              <div class="nome_restaurante">
-                <a
-                  href="{{ url_for('restaurante', restaurante_id=restaurante.id) }}">
-                  {{ restaurante.nome }}
-                </a>
-              </div>
+                  <a
+                    class="nome_restaurante"
+                    href="{{ url_for('restaurante', restaurante_id=restaurante.id) }}">
+                    {{ restaurante.nome }}
+                  </a>
 
               <div class="descricao">
-                {% if restaurante.descricao %}
-                <p >{{ restaurante.descricao }}</p>
-                {%else%}
-                <p >{{ restaurante.endereco }}</p>
-                <p >{{ restaurante.tipo }}</p>
-                <p >{{ restaurante }}</p>
-                {% endif %}
+                <p class="endereco" >{{ restaurante.endereco }}</p>
+                <p >Tipo: {{ restaurante.tipo }}</p>
+                <p> {{ restaurante.nome }} </p>
               </div>  
+                
 
               <p class="estrelas">⭐ {{ restaurante.avaliacoes }} / 5 </p>
             </div>
@@ -89,11 +85,10 @@
               <h2>Busque por um Restaurante</h2>
               <input type="text" id="search" placeholder="Buscar restaurante..." required>
               <select id="tipo_comida">
-                <option value="">Todos os Tipos</option>
+                <option class="modal_lista">Todos os Tipos</option>
               </select>
-              <ul id="resultados"></ul> 
+              <ul class="div_aleatoria" id="resultados"></ul>
           </div>
-      </div>
         </div>
       </div>
     </main>

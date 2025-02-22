@@ -40,8 +40,9 @@ listas_processadas = []
 
 for bloco in blocos:
     bloco = bloco.strip()  # Remover espaços extras
-
+    print(blocos)
     try:
+        
         # Converter string para uma lista real usando ast.literal_eval (mais seguro que eval)
         lista = ast.literal_eval(bloco)
         listas_processadas.append(lista)
@@ -111,7 +112,7 @@ for lista_tipo in listas_processadas:
             else:
                 print("Restaurante não encontrado")
             for comentario in comentarios:
-                x = randint(0,49)
+                x = randint(0,len(nomes)-1)
                 novo_comentario = ComentariosFake(
                     conteudo = comentario,
                     nome = nomes[x],

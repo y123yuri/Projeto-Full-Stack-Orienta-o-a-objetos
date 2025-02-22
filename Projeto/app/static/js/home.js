@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.addEventListener("input", function () {
         const termo = searchInput.value.trim();
 
-        if (termo.length < 3) {
+        if (termo.length === 0) {
             resultadosLista.innerHTML = ""; // Limpa a lista se o input estiver vazio
             return;
         }
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     data.forEach(restaurante => {
                         const li = document.createElement("li");
-
                         const link = document.createElement("a");
                         link.href = `/restaurante/${restaurante.id}`; // URL do restaurante
                         link.textContent = restaurante.nome;

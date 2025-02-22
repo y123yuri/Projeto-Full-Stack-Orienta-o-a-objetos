@@ -256,22 +256,26 @@ button:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombreamento leve */
   max-width: 80%; /* Evita que fique muito largo */
   margin: 10px auto; /* Centraliza horizontalmente */
+  overflow-y: auto;
+
 }
 .Maps {
   position: absolute;
   text-align: center; /* Centraliza o conteúdo */
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center; /* Centraliza os itens no eixo horizontal */
   gap: 10px;
   border-radius: 10px;
-  background-color: white;
+  background-color: #f3f4f6;
   color: black;
   height: 32em;
   width: 40em;
   margin-left: 47em;
   margin-top: 3em;
 }
+
 
 .info {
   position: absolute;

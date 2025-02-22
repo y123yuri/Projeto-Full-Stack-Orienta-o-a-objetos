@@ -40,34 +40,26 @@
           class="avatar" />
         <h2 class="profile-username">{{ usuario.username }}</h2>
         <p class="profile">📧 Email: {{ usuario.email }}</p>
-        <p class="profile">📃 Biografia: {{ perfil.bio }}</p>
-        <p class="profile">⭐ Avaliações feitas: 10</p>
+      
       </section>
 
       <section class="favorites">
         <h2>🍽️ Restaurantes Favoritos</h2>
         <ul>
-          <div>⭐ Restaurante 1</div>
-          <div>⭐ Restaurante 2</div>
-          <div>⭐ Restaurante 3</div>
+          <div>Ainda nao possui restaurantes favoritados</div>
         </ul>
       </section>
 
       <section class="reviews">
         <h2>💬 Últimas Avaliações</h2>
         <div class="comment">
-          <strong>Restaurante X:</strong> "Comida excelente!"
+          <strong>Ainda nao possui comentário</strong> 
         </div>
-        <div class="comment">
-          <strong>Restaurante Y:</strong> "Ambiente aconchegante."
-        </div>
+       
       </section>
     </main>
 
     <div class="account-settings">
-      <button class="change-password">Alterar Senha</button>
-      <button class="edit-username">Alterar Username</button>
-      <button class="delete-account">Excluir Conta</button>
       <a class="botao_logout" href="{{ url_for('logout') }}">Sair</a>
     </div>
 
